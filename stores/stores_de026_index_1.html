@@ -365,6 +365,7 @@
     will-change:transform;
   }
   .plan-stage img{display:block;max-width:none;pointer-events:none;user-select:none;}
+  #plan-pins,#ready-pins{position:relative;z-index:1;}
   .pin{
     position:absolute;
     width:38px;height:38px;
@@ -394,38 +395,44 @@
     50%{box-shadow:0 0 0 12px rgba(232,89,12,.4);}
   }
 
-  /* Interaktywne banery: podświetlenie DOKŁADNIE w miejscu wydrukowanego
-     numeru na planie, w jego naturalnym rozmiarze (skaluje się razem z
-     planem — nie zasłania sąsiednich elementów, nie robi się "pinezkowej"
-     plamy przy oddaleniu). Kontener jest trochę większy niż sam numerek
-     (wygodniejsze trafienie palcem), ale widoczna ramka jest ciasno
-     dopasowana do prawdziwego banera. */
+  /* Interaktywne banery: mały numerek (etykieta) w miejscu baneru na
+     planie. Counter-skalowany — stały rozmiar wizualny niezależnie od
+     zoomu (syncPinScale). Klikalny: otwiera arkusz statusu. */
   .hotspot{
     position:absolute;
-    width:40px;height:28px;
-    margin-left:-20px;margin-top:-14px;
     cursor:pointer;
+    z-index:2;
+    pointer-events:auto;
+    /* auto-sized to text; centered via transform in syncPinScale/syncHotspotScale */
   }
-  .hotspot-box{
-    position:absolute; inset:10%;
+  .hotspot-label{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:1px 3px;
+    min-width:18px;
     border-radius:3px;
-    border:2.5px solid #2f6fed;
-    background:color-mix(in srgb, #2f6fed 40%, transparent);
-    box-sizing:border-box;
-    box-shadow:0 0 0 2px #fff, 0 1px 5px rgba(0,0,0,.55);
-    transition:background .12s, border-color .12s;
+    border:1.5px solid #2f6fed;
+    background:rgba(255,255,255,0.92);
+    color:#1a4fc0;
+    font-size:10px;
+    font-weight:700;
+    font-family:system-ui,-apple-system,sans-serif;
+    line-height:1.15;
+    white-space:nowrap;
+    text-align:center;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);
+    transition:background .12s, border-color .12s, color .12s;
   }
-  .hotspot[data-st="done"] .hotspot-box{border-color:var(--good);background:color-mix(in srgb, var(--good) 78%, transparent);}
-  .hotspot[data-st="problem"] .hotspot-box{border-color:var(--warn);background:color-mix(in srgb, var(--warn) 78%, transparent);}
-  .hotspot[data-st="missing"] .hotspot-box{border-color:var(--bad);background:color-mix(in srgb, var(--bad) 78%, transparent);}
-  .hotspot.sticker-spot .hotspot-box{border-color:#a537c9;background:color-mix(in srgb, #a537c9 16%, transparent);}
-  .hotspot.sticker-spot[data-st="done"] .hotspot-box{border-color:var(--good);background:color-mix(in srgb, var(--good) 78%, transparent);}
-  .hotspot.sticker-spot[data-st="problem"] .hotspot-box{border-color:var(--warn);background:color-mix(in srgb, var(--warn) 78%, transparent);}
-  .hotspot.sticker-spot[data-st="missing"] .hotspot-box{border-color:var(--bad);background:color-mix(in srgb, var(--bad) 78%, transparent);}
-  .hotspot.jump-highlight .hotspot-box{animation:hotspotPulse 1.2s ease-in-out 2;}
+  .hotspot[data-st="done"] .hotspot-label{border-color:var(--good);background:var(--good);color:#fff;}
+  .hotspot[data-st="problem"] .hotspot-label{border-color:var(--warn);background:var(--warn);color:#fff;}
+  .hotspot[data-st="missing"] .hotspot-label{border-color:var(--bad);background:var(--bad);color:#fff;}
+  .hotspot.sticker-spot .hotspot-label{border-color:#a537c9;color:#a537c9;}
+  .hotspot.sticker-spot[data-st="done"] .hotspot-label{border-color:var(--good);background:var(--good);color:#fff;}
+  .hotspot.sticker-spot[data-st="problem"] .hotspot-label{border-color:var(--warn);background:var(--warn);color:#fff;}
+  .hotspot.sticker-spot[data-st="missing"] .hotspot-label{border-color:var(--bad);background:var(--bad);color:#fff;}
+  .hotspot.jump-highlight .hotspot-label{animation:hotspotPulse 1.2s ease-in-out 2;}
   @keyframes hotspotPulse{
-    0%,100%{box-shadow:0 0 0 0 rgba(232,89,12,.7);}
-    50%{box-shadow:0 0 0 8px rgba(232,89,12,.35);}
+    0%,100%{box-shadow:0 1px 3px rgba(0,0,0,.35);}
+    50%{box-shadow:0 0 0 6px rgba(232,89,12,.4);}
   }
 
   .plan-fab{
@@ -1132,9 +1139,9 @@ const I18N = {
     "lista.empty.allDone": "🎉 Wszystko zrobione! (podgląd zrobionych: filtr „Zrobione” powyżej)",
 
     "plan.toolbar.title": "Plan sklepu — stuknij baner, aby ustawić status",
-    "plan.pinCount.initial": "0 pinezek",
+    "plan.pinCount.initial": "0 pozycji",
     "plan.pinCount.banners": " banerów",
-    "plan.pinCount.extraPins": " · {n} dodatkowych pinezek",
+    "plan.pinCount.extraPins": " · {n} dodatkowych",
     "plan.pinCount.stickers": " · {n} naklejek",
     "plan.img.alt": "Plan sklepu",
 
@@ -1397,9 +1404,9 @@ const I18N = {
     "lista.empty.allDone": "🎉 Alles erledigt! (Erledigte anzeigen: Filter „Erledigt” oben)",
 
     "plan.toolbar.title": "Filialplan — Banner antippen, um den Status zu setzen",
-    "plan.pinCount.initial": "0 Pins",
+    "plan.pinCount.initial": "0 Positionen",
     "plan.pinCount.banners": " Banner",
-    "plan.pinCount.extraPins": " · {n} zusätzliche Pins",
+    "plan.pinCount.extraPins": " · {n} zusätzliche",
     "plan.pinCount.stickers": " · {n} Aufkleber",
     "plan.img.alt": "Filialplan",
 
@@ -2823,7 +2830,7 @@ const HOTSPOT_BASE_W = 40, HOTSPOT_BASE_H = 28;
 // proporcji — dla DE‑411 (który ma tę wysoką rozdzielczość referencyjną)
 // próg i tak jest mniejszy niż wyliczony rozmiar, więc nic się tam nie
 // zmienia.
-const HOTSPOT_MIN_W = 22, HOTSPOT_MIN_H = 16;
+const HOTSPOT_MIN_W = 34, HOTSPOT_MIN_H = 26;
 function sizeHotspotEl(el, imgW, imgH){
   const w = Math.max(HOTSPOT_MIN_W, HOTSPOT_BASE_W * (imgW && HOTSPOT_REF_W ? imgW / HOTSPOT_REF_W : 1));
   const h = Math.max(HOTSPOT_MIN_H, HOTSPOT_BASE_H * (imgH && HOTSPOT_REF_H ? imgH / HOTSPOT_REF_H : 1));
@@ -2876,6 +2883,9 @@ function syncPinScale(){
   document.querySelectorAll(".pin").forEach(el => {
     el.style.transform = `rotate(45deg) scale(${inv})`;
   });
+  document.querySelectorAll("#plan-pins .hotspot").forEach(el => {
+    el.style.transform = `translate(-50%,-50%) scale(${inv})`;
+  });
 }
 window.addEventListener("resize", fitPlan);
 
@@ -2897,6 +2907,9 @@ function zoomBy(f, cx, cy){
 let pointers = new Map();
 let lastDist = null, lastMid = null, dragStart = null;
 planHolder.addEventListener("pointerdown", e => {
+  // Jeśli kliknięto hotspot/pinezkę — nie przechwytuj wskaźnika, niech
+  // klik przejdzie normalnie do elementu (obsługa w renderPins).
+  if(e.target.closest(".hotspot, .pin, .sticker-spot")) return;
   planHolder.setPointerCapture(e.pointerId);
   pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
   if(pointers.size === 1){
@@ -2989,6 +3002,13 @@ function fitReady(){
 }
 function applyReadyTransform(){
   readyStage.style.transform = `translate(${rz.x}px,${rz.y}px) scale(${rz.scale})`;
+  syncReadyHotspotScale();
+}
+function syncReadyHotspotScale(){
+  const inv = 1 / rz.scale;
+  document.querySelectorAll("#ready-pins .hotspot").forEach(el => {
+    el.style.transform = `translate(-50%,-50%) scale(${inv})`;
+  });
 }
 window.addEventListener("resize", fitReady);
 
@@ -3009,6 +3029,7 @@ function zoomReadyBy(f, cx, cy){
 let readyPointers = new Map();
 let readyLastDist = null, readyDragStart = null;
 readyHolder.addEventListener("pointerdown", e => {
+  if(e.target.closest(".hotspot, .pin, .sticker-spot")) return;
   readyHolder.setPointerCapture(e.pointerId);
   readyPointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
   if(readyPointers.size === 1){
@@ -3062,15 +3083,17 @@ function renderReadyPins(){
     el.dataset.st = st === "partial" ? "todo" : st; // hotspot CSS zna todo/done/problem/missing
     el.style.left = (h.x * rz.imgW) + "px";
     el.style.top = (h.y * rz.imgH) + "px";
-    sizeHotspotEl(el, rz.imgW, rz.imgH);
-    el.innerHTML = `<div class="hotspot-box" style="${st==="todo"?"border-color:#6b6f62;background:color-mix(in srgb, #6b6f62 42%, transparent);":""}${st==="partial"?"border-color:#2f6fed;":""}"></div>`;
+    const labelStyle = st==="todo"?"border-color:#6b6f62;color:#6b6f62;":st==="partial"?"border-color:#2f6fed;color:#1a4fc0;":"";
+    el.innerHTML = `<span class="hotspot-label" style="${labelStyle}">${escapeHtml(h.pos)}</span>`;
     el.title = h.pos + " — " + preparedStatusLabel(st);
     el.addEventListener("pointerdown", e => e.stopPropagation());
+    el.addEventListener("pointerup", e => e.stopPropagation());
     el.addEventListener("click", e => { e.stopPropagation(); openPreparedSheet(h.pos); });
     host.appendChild(el);
   });
   const doneCount = spots.filter(h => preparedStatus(h.pos) === "done").length;
   document.getElementById("ready-pin-count").textContent = doneCount + "/" + spots.length + t("ready.pinCount.suffix");
+  syncReadyHotspotScale();
 }
 
 function renderPins(){
@@ -3080,15 +3103,15 @@ function renderPins(){
   planPins.forEach(p => {
     const el = document.createElement("div");
     if(p.tag){
-      // Interaktywny baner: podświetlenie dokładnie w miejscu
-      // wydrukowanego numeru, w jego naturalnej wielkości.
+      // Interaktywny baner: mały numerek w miejscu baneru na planie,
+      // klikalny — otwiera arkusz statusu. Etykieta counter-skaluje się
+      // (syncPinScale), więc zawsze jest czytelna niezależnie od zoomu.
       el.className = "hotspot";
       el.dataset.st = p.status;
       el.dataset.id = p.id;
       el.style.left = (p.x * pz.imgW) + "px";
       el.style.top = (p.y * pz.imgH) + "px";
-      sizeHotspotEl(el, pz.imgW, pz.imgH);
-      el.innerHTML = `<div class="hotspot-box"></div>`;
+      el.innerHTML = `<span class="hotspot-label">${escapeHtml(p.pos)}</span>`;
     } else {
       el.className = "pin";
       el.dataset.st = p.status;
@@ -3098,6 +3121,7 @@ function renderPins(){
       el.innerHTML = `<span>${escapeHtml(p.pos || p.label || "")}</span>`;
     }
     el.addEventListener("pointerdown", e => e.stopPropagation());
+    el.addEventListener("pointerup", e => e.stopPropagation());
     el.addEventListener("click", e => { e.stopPropagation(); openPinSheet(p.id); });
     host.appendChild(el);
   });
@@ -3115,9 +3139,9 @@ function renderPins(){
     el.dataset.stickerpos = h.pos;
     el.style.left = (h.x * pz.imgW) + "px";
     el.style.top = (h.y * pz.imgH) + "px";
-    sizeHotspotEl(el, pz.imgW, pz.imgH);
-    el.innerHTML = `<div class="hotspot-box"></div>`;
+    el.innerHTML = `<span class="hotspot-label">${escapeHtml(h.pos)}</span>`;
     el.addEventListener("pointerdown", e => e.stopPropagation());
+    el.addEventListener("pointerup", e => e.stopPropagation());
     // h.id istnieje tylko dla ręcznie dostawionych znaczników (STATE.stickerPins)
     // — automatycznie wykryte (STICKER_SPOTS) nie da się usuwać, bo pochodzą
     // wprost z wydrukowanego planu.
@@ -3176,10 +3200,9 @@ async function jumpToPin(pinId){
     if(!pz.imgW){ fitPlan(); }
     if(!pz.imgW) return;
     const holderW = planHolder.clientWidth, holderH = planHolder.clientHeight;
-    // Interaktywne banery mają naturalny rozmiar (rosną razem z planem),
-    // więc przy skoku dobijamy bliżej maksymalnego przybliżenia, żeby
-    // baner był wygodnie widoczny i klikalny.
-    const minScale = p.tag ? 2.6 : 1.5;
+    // Etykiety counter-skalują się (stały rozmiar wizualny), więc nie
+    // trzeba dużego przybliżenia — wystarczy 1.5 dla obu typów.
+    const minScale = 1.5;
     const targetScale = Math.min(3, Math.max(pz.scale, minScale));
     pz.scale = targetScale;
     pz.x = holderW/2 - p.x*pz.imgW*targetScale;
