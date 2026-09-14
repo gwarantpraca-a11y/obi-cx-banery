@@ -365,7 +365,7 @@
     will-change:transform;
   }
   .plan-stage img{display:block;max-width:none;pointer-events:none;user-select:none;}
-  #plan-pins,#ready-pins{position:relative;z-index:1;}
+  #plan-pins,#ready-pins{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;}
   .pin{
     position:absolute;
     width:38px;height:38px;
@@ -407,20 +407,21 @@
   }
   .hotspot-label{
     display:inline-flex;align-items:center;justify-content:center;
-    padding:1px 3px;
-    min-width:18px;
-    border-radius:3px;
-    border:1.5px solid #2f6fed;
-    background:rgba(255,255,255,0.92);
+    padding:2px 5px;
+    min-width:22px;
+    border-radius:4px;
+    border:2px solid #2f6fed;
+    background:rgba(47,111,237,0.15);
     color:#1a4fc0;
-    font-size:10px;
-    font-weight:700;
+    font-size:11px;
+    font-weight:800;
     font-family:system-ui,-apple-system,sans-serif;
-    line-height:1.15;
+    line-height:1.2;
     white-space:nowrap;
     text-align:center;
-    box-shadow:0 1px 3px rgba(0,0,0,.35);
-    transition:background .12s, border-color .12s, color .12s;
+    box-shadow:0 1px 4px rgba(0,0,0,.4);
+    transition:background .15s, border-color .15s, color .15s, box-shadow .15s;
+    cursor:pointer;
   }
   .hotspot[data-st="done"] .hotspot-label{border-color:var(--good);background:var(--good);color:#fff;}
   .hotspot[data-st="problem"] .hotspot-label{border-color:var(--warn);background:var(--warn);color:#fff;}
@@ -827,6 +828,11 @@
         </div>
         <div class="plan-toolbar">
           <strong style="font-size:14px;" data-i18n="plan.toolbar.title">Plan sklepu — stuknij baner, aby ustawić status</strong>
+          <div class="mini-plan-legend" style="margin:0;">
+            <span><i style="background:#2f6fed;"></i><span data-i18n="plan.legend.todo">do zrobienia</span></span>
+            <span><i style="background:var(--warn);"></i><span data-i18n="plan.legend.problem">uszkodzone</span></span>
+            <span><i style="background:var(--good);"></i><span data-i18n="plan.legend.done">gotowe</span></span>
+          </div>
           <span style="color:var(--ink-dim);font-size:13px;margin-left:auto;" id="plan-pin-count" data-i18n="plan.pinCount.initial">0 pinezek</span>
         </div>
         <div class="plan-stage-holder" id="plan-holder">
@@ -2880,9 +2886,6 @@ function applyTransform(){
 }
 function syncPinScale(){
   const inv = 1 / pz.scale;
-  document.querySelectorAll(".pin").forEach(el => {
-    el.style.transform = `rotate(45deg) scale(${inv})`;
-  });
   document.querySelectorAll("#plan-pins .hotspot").forEach(el => {
     el.style.transform = `translate(-50%,-50%) scale(${inv})`;
   });
@@ -2952,13 +2955,8 @@ planHolder.addEventListener("wheel", e => {
 }, {passive:false});
 
 function handlePlanTap(clientX, clientY){
-  const rect = planHolder.getBoundingClientRect();
-  const localX = clientX - rect.left, localY = clientY - rect.top;
-  const imgX = (localX - pz.x) / pz.scale;
-  const imgY = (localY - pz.y) / pz.scale;
-  if(imgX < 0 || imgY < 0 || imgX > pz.imgW || imgY > pz.imgH) return;
-  const relX = imgX / pz.imgW, relY = imgY / pz.imgH;
-  createPinAt(relX, relY);
+  // Wyłączone — plan reaguje tylko na kliknięcie istniejącego hotspotu,
+  // nie tworzy nowych pinezek przy stuknięciu w puste miejsce.
 }
 
 let pinSeq = 0;
@@ -3101,25 +3099,16 @@ function renderPins(){
   host.innerHTML = "";
   const planPins = STATE.pins.filter(p => (p.plan || 1) === currentPlan);
   planPins.forEach(p => {
+    // Tylko hotspoty (tag:true) — interaktywne niebieskie prostokąty z numerkiem.
+    // Ręcznie dodane pinezki (tag:false) nie są rysowane na planie.
+    if(!p.tag) return;
     const el = document.createElement("div");
-    if(p.tag){
-      // Interaktywny baner: mały numerek w miejscu baneru na planie,
-      // klikalny — otwiera arkusz statusu. Etykieta counter-skaluje się
-      // (syncPinScale), więc zawsze jest czytelna niezależnie od zoomu.
-      el.className = "hotspot";
-      el.dataset.st = p.status;
-      el.dataset.id = p.id;
-      el.style.left = (p.x * pz.imgW) + "px";
-      el.style.top = (p.y * pz.imgH) + "px";
-      el.innerHTML = `<span class="hotspot-label">${escapeHtml(p.pos)}</span>`;
-    } else {
-      el.className = "pin";
-      el.dataset.st = p.status;
-      el.dataset.id = p.id;
-      el.style.left = (p.x * pz.imgW) + "px";
-      el.style.top = (p.y * pz.imgH) + "px";
-      el.innerHTML = `<span>${escapeHtml(p.pos || p.label || "")}</span>`;
-    }
+    el.className = "hotspot";
+    el.dataset.st = p.status;
+    el.dataset.id = p.id;
+    el.style.left = (p.x * pz.imgW) + "px";
+    el.style.top = (p.y * pz.imgH) + "px";
+    el.innerHTML = `<span class="hotspot-label">${escapeHtml(p.pos)}</span>`;
     el.addEventListener("pointerdown", e => e.stopPropagation());
     el.addEventListener("pointerup", e => e.stopPropagation());
     el.addEventListener("click", e => { e.stopPropagation(); openPinSheet(p.id); });
@@ -3154,7 +3143,7 @@ function renderPins(){
   // Licznik na zakładce u góry celowo liczy WSZYSTKIE pinezki (oba plany
   // razem) — to ogólny postęp montażu w całym sklepie, nie tylko na
   // aktualnie wyświetlanym planie.
-  document.getElementById("tab-cnt-plan").textContent = STATE.pins.filter(p=>p.status==="done").length + "/" + STATE.pins.length;
+  document.getElementById("tab-cnt-plan").textContent = STATE.pins.filter(p=>p.tag&&p.status==="done").length + "/" + STATE.pins.filter(p=>p.tag).length;
   syncPinScale();
 }
 
