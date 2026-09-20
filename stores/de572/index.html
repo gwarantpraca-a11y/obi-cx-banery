@@ -604,6 +604,20 @@
     background:var(--paper);color:var(--ink);padding:10px 12px;font-family:inherit;font-size:14.5px;
   }
   .zg-form textarea{resize:vertical;min-height:60px;}
+  #zg-pos-results{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px;display:none;}
+  #zg-pos-results.show{display:block;}
+  #zg-pos-results .opt{padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;display:flex;gap:8px;align-items:center;}
+  #zg-pos-results .opt:last-child{border-bottom:none;}
+  #zg-pos-results .opt:hover{background:var(--paper-2);}
+  #zg-pos-results .opt img{width:44px;height:30px;object-fit:cover;border-radius:5px;border:1px solid var(--line);flex:none;}
+  #zg-pos-results .opt b{color:var(--accent-ink);font-family:"Barlow Condensed";flex:none;}
+  .zg-pos-selected{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;margin-top:8px;
+    background:var(--accent-tint);border-radius:10px;border:1px solid transparent;
+  }
+  .zg-pos-selected img{width:56px;height:38px;object-fit:cover;border-radius:6px;border:1px solid var(--line);flex:none;}
+  .zg-pos-selected b{font-family:"Barlow Condensed";color:var(--accent-ink);}
+  .zg-pos-selected button{margin-left:auto;flex:none;background:transparent;border:none;color:var(--ink-dim);font-size:16px;cursor:pointer;}
   .zg-mount-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .zg-mount-grid button{
     padding:12px;border-radius:10px;border:1px solid var(--line-strong);background:var(--paper);
@@ -630,108 +644,10 @@
   .zg-card.zg-status-done{opacity:.55;}
   .zg-card.zg-status-done .zg-done-btn{background:var(--good-tint);border-color:var(--good);color:var(--good);}
 
-  /* ---- Zapotrzebowanie ---- */
-  #zap-form-wrap{padding:12px 16px;}
-  .zap-form{
-    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 16px;box-shadow:var(--shadow);
-  }
-  .zap-form .field-lbl{font-size:12.5px;font-weight:700;color:var(--ink-dim);margin:12px 0 6px;text-transform:uppercase;letter-spacing:.04em;}
-  .zap-form .field-lbl:first-child{margin-top:0;}
-  .zap-form input[type="text"], .zap-form textarea{
-    width:100%;border:1px solid var(--line-strong);border-radius:10px;
-    background:var(--paper);color:var(--ink);padding:10px 12px;font-family:inherit;font-size:14.5px;
-  }
-  .zap-form textarea{resize:vertical;min-height:50px;}
-  #zap-pos-results{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px;display:none;}
-  #zap-pos-results.show{display:block;}
-  #zap-pos-results .opt{padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;display:flex;gap:8px;align-items:center;}
-  #zap-pos-results .opt:last-child{border-bottom:none;}
-  #zap-pos-results .opt:hover{background:var(--paper-2);}
-  #zap-pos-results .opt img{width:44px;height:30px;object-fit:cover;border-radius:5px;border:1px solid var(--line);flex:none;}
-  #zap-pos-results .opt b{color:var(--accent-ink);font-family:"Barlow Condensed";flex:none;}
-  .zap-selected{
-    display:flex;align-items:center;gap:10px;padding:10px 12px;margin-top:8px;
-    background:var(--accent-tint);border-radius:10px;border:1px solid transparent;
-  }
-  .zap-selected img{width:56px;height:38px;object-fit:cover;border-radius:6px;border:1px solid var(--line);flex:none;}
-  .zap-selected b{font-family:"Barlow Condensed";color:var(--accent-ink);}
-  .zap-selected button{margin-left:auto;flex:none;background:transparent;border:none;color:var(--ink-dim);font-size:16px;cursor:pointer;}
-  .zap-qty-row{display:flex;align-items:center;gap:12px;margin-top:6px;}
-  .zap-submit{margin-top:14px;width:100%;padding:13px;border-radius:11px;font-weight:700;font-size:15px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;}
-  .zap-submit:disabled{opacity:.5;cursor:default;}
-  #zap-list{padding:6px 16px 24px;display:flex;flex-direction:column;gap:10px;}
-  .zap-card{
-    background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
-    box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;
-  }
-  .zap-card.zap-done{opacity:.5;}
-  .zap-card-main{flex:1;min-width:0;}
-  .zap-card-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-  .zap-card-top b{font-family:"Barlow Condensed";font-size:16px;color:var(--accent-ink);}
-  .zap-card-top .zap-when{font-size:12px;color:var(--ink-dim);margin-left:auto;white-space:nowrap;}
-  .zap-card-meta{font-size:12.5px;color:var(--ink-dim);margin-top:2px;}
-  .zap-card-note{font-size:13px;margin-top:4px;font-style:italic;}
-  .zap-fulfill-btn{
-    flex:none;padding:9px 14px;border-radius:9px;border:1px solid var(--line-strong);
-    background:var(--paper);font-size:12.5px;font-weight:700;cursor:pointer;
-  }
-  .zap-card.zap-done .zap-fulfill-btn{background:var(--good-tint);border-color:var(--good);color:var(--good);}
+  /* ---- Zapotrzebowanie (tablica zasilana Zgłoszeniami — patrz renderZapZgList) ---- */
   .zap-section-lbl{padding:14px 16px 4px;font-size:12.5px;font-weight:700;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;}
 
-  /* ---- Krótkofalówka ---- */
-  #kom-wrap{display:flex;flex-direction:column;height:100%;}
-  #kom-channels{
-    display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);
-    background:var(--paper-2);flex:none;overflow-x:auto;
-  }
-  .kom-chan-btn{
-    padding:9px 16px;border-radius:99px;border:1px solid var(--line-strong);background:var(--paper);
-    color:var(--ink-dim);font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;
-  }
-  .kom-chan-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-  #kom-presence{
-    flex:none;padding:8px 16px;font-size:13px;color:var(--ink-dim);
-    background:var(--paper);border-bottom:1px solid var(--line);
-    display:flex;align-items:center;gap:8px;
-  }
-  .kom-live-dot{width:9px;height:9px;border-radius:50%;background:var(--bad);flex:none;box-shadow:0 0 0 4px var(--bad-tint);animation:kom-pulse 1.2s infinite;}
-  .kom-live-dot.kom-live-idle{background:var(--good);box-shadow:0 0 0 4px var(--good-tint);animation:none;}
-  .kom-live-dot.kom-live-off{background:var(--ink-dim);box-shadow:none;animation:none;}
-  @keyframes kom-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-  #kom-messages{flex:1;min-height:0;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
-  .kom-msg{max-width:min(78%,520px);}
-  .kom-msg-meta{font-size:11.5px;color:var(--ink-dim);margin-bottom:3px;display:flex;gap:8px;}
-  .kom-msg-body{
-    background:var(--card);border:1px solid var(--line);border-radius:14px 14px 14px 4px;
-    padding:10px 13px;font-size:14.5px;box-shadow:var(--shadow);
-  }
-  .kom-msg.kom-mine{align-self:flex-end;}
-  .kom-msg.kom-mine .kom-msg-body{background:var(--accent-tint);border-radius:14px 14px 4px 14px;border-color:transparent;}
-  .kom-msg-voice{display:flex;align-items:center;gap:10px;}
-  .kom-msg-voice audio{height:34px;max-width:220px;}
   .kom-empty{color:var(--ink-dim);font-size:14px;text-align:center;padding:30px 0;}
-  #kom-composer{
-    flex:none;display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--line);
-    background:var(--paper-2);align-items:center;
-  }
-  #kom-text{
-    flex:1;border:1px solid var(--line-strong);border-radius:99px;background:var(--paper);
-    color:var(--ink);padding:12px 18px;font-family:inherit;font-size:15px;
-  }
-  #kom-send{
-    flex:none;width:48px;height:48px;border-radius:50%;border:1px solid var(--accent);
-    background:var(--accent);color:#fff;font-size:19px;cursor:pointer;
-  }
-  #kom-ptt{
-    flex:none;width:64px;height:64px;border-radius:50%;border:2px solid var(--accent);
-    background:var(--card);color:var(--accent-ink);font-size:24px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;user-select:none;touch-action:none;
-    transition:transform .1s, background .1s;
-  }
-  #kom-ptt.recording{background:var(--bad);border-color:var(--bad);color:#fff;transform:scale(1.12);
-    box-shadow:0 0 0 8px var(--bad-tint);}
-  #kom-name-badge{font-size:12px;color:var(--ink-dim);padding:0 16px;flex:none;}
 </style>
 
 <div id="app">
@@ -758,7 +674,6 @@
     <button class="tab-btn" data-tab="zgloszenia"><span data-i18n="tab.zgloszenia">🛠️ Zgłoszenia</span> <span class="cnt" id="tab-cnt-zgloszenia">0</span></button>
     <button class="tab-btn" data-tab="podglad"><span data-i18n="tab.podglad">📊 Podgląd</span></button>
     <button class="tab-btn" data-tab="inwentaryzacja"><span data-i18n="tab.inwentaryzacja">📦 Inwentaryzacja</span> <span class="cnt" id="tab-cnt-inwentaryzacja">0/0</span></button>
-    <button class="tab-btn" data-tab="komunikator"><span data-i18n="tab.komunikator">📻 Krótkofalówka</span> <span class="cnt" id="tab-cnt-komunikator">0</span></button>
   </div>
 
   <div id="views">
@@ -794,9 +709,7 @@
     </div>
 
     <div class="view" id="view-zapotrzebowanie">
-      <div style="padding:12px 16px 0;color:var(--ink-dim);font-size:12.5px;" data-i18n="view.zapotrzebowanie.intro">Wspólna tablica dla ekipy szykującej i montującej — zaznacz, jaki baner jest Ci potrzebny teraz, a druga ekipa to zobaczy na żywo i przygotuje/dostarczy. Widoczne na wszystkich urządzeniach.</div>
-      <div id="zap-form-wrap"></div>
-      <div id="zap-list"></div>
+      <div style="padding:12px 16px 0;color:var(--ink-dim);font-size:12.5px;" data-i18n="view.zapotrzebowanie.intro">Tu widać na żywo zapotrzebowanie na banery — zgłoszone przez ekipę montującą w zakładce Zgłoszenia (razem z rodzajem mocowania, opisem i zdjęciem). Oznacz „zrobione”, gdy baner jest gotowy.</div>
       <div id="zap-zg-list"></div>
     </div>
 
@@ -873,15 +786,6 @@
       <div id="inv-groups"></div>
     </div>
 
-    <div class="view" id="view-komunikator">
-      <div id="kom-wrap">
-        <div style="padding:10px 16px 0;color:var(--ink-dim);font-size:12.5px;" data-i18n="view.komunikator.intro">Prawdziwa rozmowa na żywo — przytrzymaj 🎙️ i mów, jak w krótkofalówce. Słyszy Cię każdy, kto ma w tej chwili otwarty ten sam kanał. Wybierz kanał u góry.</div>
-        <div id="kom-channels"></div>
-        <div id="kom-presence"></div>
-        <div id="kom-messages"></div>
-        <div id="kom-composer"></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -897,7 +801,7 @@
    ============================================================ */
 const RAW_DATA = {"storeId": "de572", "storeName": "OBI DE‑572 Göppingen", "items": [{"pos": "021", "name": "Pozycja 021 (opis do potwierdzenia)", "name_de": "Position 021 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "026", "name": "Pozycja 026 (opis do potwierdzenia)", "name_de": "Position 026 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "036", "name": "Pozycja 036 (opis do potwierdzenia)", "name_de": "Position 036 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "037", "name": "Pozycja 037 (opis do potwierdzenia)", "name_de": "Position 037 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "038", "name": "Pozycja 038 (opis do potwierdzenia)", "name_de": "Position 038 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "039", "name": "Pozycja 039 (opis do potwierdzenia)", "name_de": "Position 039 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "040", "name": "Pozycja 040 (opis do potwierdzenia)", "name_de": "Position 040 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "041", "name": "Pozycja 041 (opis do potwierdzenia)", "name_de": "Position 041 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "044", "name": "Pozycja 044 (opis do potwierdzenia)", "name_de": "Position 044 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "045", "name": "Pozycja 045 (opis do potwierdzenia)", "name_de": "Position 045 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "046", "name": "Pozycja 046 (opis do potwierdzenia)", "name_de": "Position 046 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "047", "name": "Pozycja 047 (opis do potwierdzenia)", "name_de": "Position 047 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "048", "name": "Pozycja 048 (opis do potwierdzenia)", "name_de": "Position 048 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "050", "name": "Pozycja 050 (opis do potwierdzenia)", "name_de": "Position 050 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "053", "name": "Pozycja 053 (opis do potwierdzenia)", "name_de": "Position 053 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "054", "name": "Pozycja 054 (opis do potwierdzenia)", "name_de": "Position 054 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "055", "name": "Pozycja 055 (opis do potwierdzenia)", "name_de": "Position 055 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "056", "name": "Pozycja 056 (opis do potwierdzenia)", "name_de": "Position 056 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "057", "name": "Pozycja 057 (opis do potwierdzenia)", "name_de": "Position 057 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "058", "name": "Pozycja 058 (opis do potwierdzenia)", "name_de": "Position 058 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "059", "name": "Pozycja 059 (opis do potwierdzenia)", "name_de": "Position 059 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "060", "name": "Pozycja 060 (opis do potwierdzenia)", "name_de": "Position 060 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "061", "name": "Pozycja 061 (opis do potwierdzenia)", "name_de": "Position 061 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "062", "name": "Pozycja 062 (opis do potwierdzenia)", "name_de": "Position 062 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "063", "name": "Pozycja 063 (opis do potwierdzenia)", "name_de": "Position 063 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "064", "name": "Pozycja 064 (opis do potwierdzenia)", "name_de": "Position 064 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "065", "name": "Pozycja 065 (opis do potwierdzenia)", "name_de": "Position 065 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "066", "name": "Pozycja 066 (opis do potwierdzenia)", "name_de": "Position 066 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "067", "name": "Pozycja 067 (opis do potwierdzenia)", "name_de": "Position 067 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "068", "name": "Pozycja 068 (opis do potwierdzenia)", "name_de": "Position 068 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "069", "name": "Pozycja 069 (opis do potwierdzenia)", "name_de": "Position 069 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "070", "name": "Pozycja 070 (opis do potwierdzenia)", "name_de": "Position 070 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "071", "name": "Pozycja 071 (opis do potwierdzenia)", "name_de": "Position 071 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "072", "name": "Pozycja 072 (opis do potwierdzenia)", "name_de": "Position 072 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "073", "name": "Pozycja 073 (opis do potwierdzenia)", "name_de": "Position 073 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "074", "name": "Pozycja 074 (opis do potwierdzenia)", "name_de": "Position 074 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna + Gartencenter — do opisania", "group_de": "Haupthaus + Gartencenter — TBD"}, {"pos": "075", "name": "Pozycja 075 (opis do potwierdzenia)", "name_de": "Position 075 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "076", "name": "Pozycja 076 (opis do potwierdzenia)", "name_de": "Position 076 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "077", "name": "Pozycja 077 (opis do potwierdzenia)", "name_de": "Position 077 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "078", "name": "Pozycja 078 (opis do potwierdzenia)", "name_de": "Position 078 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "200", "name": "Pozycja 200 (opis do potwierdzenia)", "name_de": "Position 200 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "201", "name": "Pozycja 201 (opis do potwierdzenia)", "name_de": "Position 201 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "202", "name": "Pozycja 202 (opis do potwierdzenia)", "name_de": "Position 202 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "203", "name": "Pozycja 203 (opis do potwierdzenia)", "name_de": "Position 203 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "204", "name": "Pozycja 204 (opis do potwierdzenia)", "name_de": "Position 204 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "205", "name": "Pozycja 205 (opis do potwierdzenia)", "name_de": "Position 205 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "206", "name": "Pozycja 206 (opis do potwierdzenia)", "name_de": "Position 206 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "207", "name": "Pozycja 207 (opis do potwierdzenia)", "name_de": "Position 207 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "208", "name": "Pozycja 208 (opis do potwierdzenia)", "name_de": "Position 208 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "209", "name": "Pozycja 209 (opis do potwierdzenia)", "name_de": "Position 209 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "210", "name": "Pozycja 210 (opis do potwierdzenia)", "name_de": "Position 210 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "211", "name": "Pozycja 211 (opis do potwierdzenia)", "name_de": "Position 211 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "300", "name": "Pozycja 300 (opis do potwierdzenia)", "name_de": "Position 300 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "301", "name": "Pozycja 301 (opis do potwierdzenia)", "name_de": "Position 301 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "302", "name": "Pozycja 302 (opis do potwierdzenia)", "name_de": "Position 302 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "303", "name": "Pozycja 303 (opis do potwierdzenia)", "name_de": "Position 303 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "304", "name": "Pozycja 304 (opis do potwierdzenia)", "name_de": "Position 304 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "305", "name": "Pozycja 305 (opis do potwierdzenia)", "name_de": "Position 305 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "306", "name": "Pozycja 306 (opis do potwierdzenia)", "name_de": "Position 306 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "307", "name": "Pozycja 307 (opis do potwierdzenia)", "name_de": "Position 307 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "308", "name": "Pozycja 308 (opis do potwierdzenia)", "name_de": "Position 308 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "309", "name": "Pozycja 309 (opis do potwierdzenia)", "name_de": "Position 309 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "310", "name": "Pozycja 310 (opis do potwierdzenia)", "name_de": "Position 310 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "311", "name": "Pozycja 311 (opis do potwierdzenia)", "name_de": "Position 311 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "312", "name": "Pozycja 312 (opis do potwierdzenia)", "name_de": "Position 312 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "313", "name": "Pozycja 313 (opis do potwierdzenia)", "name_de": "Position 313 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "314", "name": "Pozycja 314 (opis do potwierdzenia)", "name_de": "Position 314 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "315", "name": "Pozycja 315 (opis do potwierdzenia)", "name_de": "Position 315 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "316", "name": "Pozycja 316 (opis do potwierdzenia)", "name_de": "Position 316 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "317", "name": "Pozycja 317 (opis do potwierdzenia)", "name_de": "Position 317 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "318", "name": "Pozycja 318 (opis do potwierdzenia)", "name_de": "Position 318 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "400", "name": "Pozycja 400 (opis do potwierdzenia)", "name_de": "Position 400 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "402", "name": "Pozycja 402 (opis do potwierdzenia)", "name_de": "Position 402 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "403", "name": "Pozycja 403 (opis do potwierdzenia)", "name_de": "Position 403 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "405", "name": "Pozycja 405 (opis do potwierdzenia)", "name_de": "Position 405 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "406", "name": "Pozycja 406 (opis do potwierdzenia)", "name_de": "Position 406 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "408", "name": "Pozycja 408 (opis do potwierdzenia)", "name_de": "Position 408 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "414", "name": "Pozycja 414 (opis do potwierdzenia)", "name_de": "Position 414 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna + Gartencenter — do opisania", "group_de": "Haupthaus + Gartencenter — TBD"}, {"pos": "416", "name": "Pozycja 416 (opis do potwierdzenia)", "name_de": "Position 416 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "417", "name": "Pozycja 417 (opis do potwierdzenia)", "name_de": "Position 417 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "418", "name": "Pozycja 418 (opis do potwierdzenia)", "name_de": "Position 418 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "022", "name": "Pozycja 022 (opis do potwierdzenia)", "name_de": "Position 022 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "025", "name": "Pozycja 025 (opis do potwierdzenia)", "name_de": "Position 025 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "027", "name": "Pozycja 027 (opis do potwierdzenia)", "name_de": "Position 027 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "079", "name": "Pozycja 079 (opis do potwierdzenia)", "name_de": "Position 079 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "080", "name": "Pozycja 080 (opis do potwierdzenia)", "name_de": "Position 080 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "081", "name": "Pozycja 081 (opis do potwierdzenia)", "name_de": "Position 081 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "082", "name": "Pozycja 082 (opis do potwierdzenia)", "name_de": "Position 082 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "212", "name": "Pozycja 212 (opis do potwierdzenia)", "name_de": "Position 212 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "213", "name": "Pozycja 213 (opis do potwierdzenia)", "name_de": "Position 213 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "214", "name": "Pozycja 214 (opis do potwierdzenia)", "name_de": "Position 214 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "215", "name": "Pozycja 215 (opis do potwierdzenia)", "name_de": "Position 215 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "216", "name": "Pozycja 216 (opis do potwierdzenia)", "name_de": "Position 216 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "217", "name": "Pozycja 217 (opis do potwierdzenia)", "name_de": "Position 217 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "218", "name": "Pozycja 218 (opis do potwierdzenia)", "name_de": "Position 218 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "219", "name": "Pozycja 219 (opis do potwierdzenia)", "name_de": "Position 219 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "220", "name": "Pozycja 220 (opis do potwierdzenia)", "name_de": "Position 220 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "319", "name": "Pozycja 319 (opis do potwierdzenia)", "name_de": "Position 319 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "320", "name": "Pozycja 320 (opis do potwierdzenia)", "name_de": "Position 320 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "321", "name": "Pozycja 321 (opis do potwierdzenia)", "name_de": "Position 321 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "322", "name": "Pozycja 322 (opis do potwierdzenia)", "name_de": "Position 322 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "323", "name": "Pozycja 323 (opis do potwierdzenia)", "name_de": "Position 323 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "324", "name": "Pozycja 324 (opis do potwierdzenia)", "name_de": "Position 324 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "325", "name": "Pozycja 325 (opis do potwierdzenia)", "name_de": "Position 325 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "326", "name": "Pozycja 326 (opis do potwierdzenia)", "name_de": "Position 326 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "327", "name": "Pozycja 327 (opis do potwierdzenia)", "name_de": "Position 327 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "328", "name": "Pozycja 328 (opis do potwierdzenia)", "name_de": "Position 328 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "331", "name": "Pozycja 331 (opis do potwierdzenia)", "name_de": "Position 331 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "410", "name": "Pozycja 410 (opis do potwierdzenia)", "name_de": "Position 410 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "411", "name": "Pozycja 411 (opis do potwierdzenia)", "name_de": "Position 411 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "412", "name": "Pozycja 412 (opis do potwierdzenia)", "name_de": "Position 412 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "413", "name": "Pozycja 413 (opis do potwierdzenia)", "name_de": "Position 413 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "420", "name": "Pozycja 420 (opis do potwierdzenia)", "name_de": "Position 420 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "421", "name": "Pozycja 421 (opis do potwierdzenia)", "name_de": "Position 421 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "422", "name": "Pozycja 422 (opis do potwierdzenia)", "name_de": "Position 422 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "423", "name": "Pozycja 423 (opis do potwierdzenia)", "name_de": "Position 423 (Beschreibung folgt)", "qty": 1, "m2": null, "group": "Gartencenter — do opisania", "group_de": "Gartencenter — TBD"}, {"pos": "NB1", "name": "Plansza — z dodruku 1 (11.09.26)", "name_de": "Plane aus Nachbestellung 1 (11.09.26)", "qty": 1, "m2": null, "group": "Hala główna (BM+BSH) — do opisania", "group_de": "Haupthaus (BM+BSH) — TBD"}, {"pos": "415", "name": "Plansza zielona — fasada szklana 3000x3000mm", "name_de": "Planen grün Glasfassade 3000x3000 mm", "qty": 1, "m2": 9.0, "group": "Gartencenter", "group_de": "Gartencenter"}, {"pos": "W01", "name": "Dein Einkauf. Deine Größe. Dein Wagen. (naklejka Windfang)", "name_de": "Aufkleber, Dein Einkauf…, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W02", "name": "Transporter — Anhänger? (naklejka Windfang)", "name_de": "Aufkleber, Transporter - Anhänger, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W03", "name": "Folia — ikony wózek/transporter/przyczepa, róg wejścia", "name_de": "Folien Icons - Plott, Einkaufswagen Ecke, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W05", "name": "Hier im Gartencenter! (podest Windfang)", "name_de": "Plottertext, Hier im Gartencenter, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W07", "name": "Krople (grafika, podest Windfang)", "name_de": "Plottergrafik, Gießtropfen, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W08", "name": "Fürs Giessen und Geniessen gemacht. (podest Windfang)", "name_de": "Aufkleber, Fürs Giessen…, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W10", "name": "Dein Projekt. (naklejka, wyjście Windfang)", "name_de": "Aufkleber, Dein Projekt, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W13", "name": "Beraten. Planen. (naklejka, wyjście Windfang)", "name_de": "Aufkleber, Beraten, Planen, Windfang", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W15", "name": "Solaranlage? (naklejka, wyjście Windfang, QR)", "name_de": "Aufkleber, Windfang, Ausgang, Solaranlage?", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W16", "name": "Wärmepumpe? (naklejka, wyjście Windfang, QR)", "name_de": "Aufkleber, Windfang, Ausgang, Wärmepumpe?", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W17", "name": "Wallbox? (naklejka, wyjście Windfang, QR)", "name_de": "Aufkleber, Windfang, Ausgang, Wallbox?", "qty": 1, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W34", "name": "Osłona przeciwsłoneczna Windfang zewnętrzna (pomarańcz) 1310x760", "name_de": "Windfang Sichtschutz Außen (orange)", "qty": 2, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W35", "name": "Osłona przeciwsłoneczna Windfang zewnętrzna (pomarańcz) 1310x2350", "name_de": "Windfang Sichtschutz Außen (orange)", "qty": 2, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W36", "name": "Osłona przeciwsłoneczna Windfang zewnętrzna (pomarańcz) 1280x740", "name_de": "Windfang Sichtschutz Außen (orange)", "qty": 2, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}, {"pos": "W37", "name": "Osłona przeciwsłoneczna Windfang zewnętrzna (pomarańcz) 1280x2350", "name_de": "Windfang Sichtschutz Außen (orange)", "qty": 2, "m2": null, "group": "Wejście / Windfang", "group_de": "Eingang / Windfang"}], "facadeCells": [], "windfangCells": [], "hotspots": [{"pos": "037", "plan": 1, "x": 0.2291, "y": 0.4571}, {"pos": "037", "plan": 1, "x": 0.2292, "y": 0.4846}, {"pos": "036", "plan": 1, "x": 0.211, "y": 0.4522}, {"pos": "036", "plan": 1, "x": 0.2109, "y": 0.4804}, {"pos": "040", "plan": 1, "x": 0.2631, "y": 0.4691}, {"pos": "041", "plan": 1, "x": 0.2653, "y": 0.455}, {"pos": "040", "plan": 1, "x": 0.2632, "y": 0.4956}, {"pos": "041", "plan": 1, "x": 0.2653, "y": 0.4814}, {"pos": "048", "plan": 1, "x": 0.2997, "y": 0.4643}, {"pos": "048", "plan": 1, "x": 0.3146, "y": 0.4643}, {"pos": "048", "plan": 1, "x": 0.3148, "y": 0.4744}, {"pos": "048", "plan": 1, "x": 0.2999, "y": 0.4744}, {"pos": "047", "plan": 1, "x": 0.2939, "y": 0.4964}, {"pos": "038", "plan": 1, "x": 0.2317, "y": 0.5045}, {"pos": "039", "plan": 1, "x": 0.2324, "y": 0.5166}, {"pos": "045", "plan": 1, "x": 0.2957, "y": 0.4918}, {"pos": "044", "plan": 1, "x": 0.2956, "y": 0.4798}, {"pos": "046", "plan": 1, "x": 0.3003, "y": 0.4857}, {"pos": "046", "plan": 1, "x": 0.3104, "y": 0.4857}, {"pos": "044", "plan": 1, "x": 0.3057, "y": 0.4797}, {"pos": "045", "plan": 1, "x": 0.3058, "y": 0.4918}, {"pos": "050", "plan": 1, "x": 0.2736, "y": 0.4908}, {"pos": "053", "plan": 1, "x": 0.2758, "y": 0.74}, {"pos": "054", "plan": 1, "x": 0.2889, "y": 0.7638}, {"pos": "055", "plan": 1, "x": 0.2777, "y": 0.7692}, {"pos": "056", "plan": 1, "x": 0.2759, "y": 0.7555}, {"pos": "057", "plan": 1, "x": 0.2764, "y": 0.7161}, {"pos": "058", "plan": 1, "x": 0.3231, "y": 0.7632}, {"pos": "059", "plan": 1, "x": 0.3432, "y": 0.7896}, {"pos": "059", "plan": 1, "x": 0.3466, "y": 0.7944}, {"pos": "060", "plan": 1, "x": 0.3837, "y": 0.7911}, {"pos": "061", "plan": 1, "x": 0.4203, "y": 0.6226}, {"pos": "061", "plan": 1, "x": 0.4229, "y": 0.6798}, {"pos": "062", "plan": 1, "x": 0.3455, "y": 0.657}, {"pos": "063", "plan": 1, "x": 0.4221, "y": 0.6553}, {"pos": "064", "plan": 1, "x": 0.4108, "y": 0.6064}, {"pos": "065", "plan": 1, "x": 0.611, "y": 0.6716}, {"pos": "066", "plan": 1, "x": 0.6565, "y": 0.673}, {"pos": "067", "plan": 1, "x": 0.6613, "y": 0.653}, {"pos": "067", "plan": 1, "x": 0.6612, "y": 0.6398}, {"pos": "067", "plan": 1, "x": 0.6555, "y": 0.6353}, {"pos": "067", "plan": 1, "x": 0.6373, "y": 0.6351}, {"pos": "068", "plan": 1, "x": 0.6111, "y": 0.5695}, {"pos": "069", "plan": 1, "x": 0.4373, "y": 0.6826}, {"pos": "070", "plan": 1, "x": 0.4381, "y": 0.7028}, {"pos": "071", "plan": 1, "x": 0.6014, "y": 0.6869}, {"pos": "073", "plan": 1, "x": 0.4697, "y": 0.4961}, {"pos": "026", "plan": 1, "x": 0.2364, "y": 0.1895}, {"pos": "021", "plan": 1, "x": 0.2374, "y": 0.1551}, {"pos": "074", "plan": 1, "x": 0.4243, "y": 0.0838}, {"pos": "075", "plan": 1, "x": 0.5133, "y": 0.0981}, {"pos": "076", "plan": 1, "x": 0.5506, "y": 0.111}, {"pos": "077", "plan": 1, "x": 0.6037, "y": 0.1603}, {"pos": "077", "plan": 1, "x": 0.6036, "y": 0.1844}, {"pos": "078", "plan": 1, "x": 0.6029, "y": 0.2146}, {"pos": "078", "plan": 1, "x": 0.6035, "y": 0.2596}, {"pos": "200", "plan": 1, "x": 0.4395, "y": 0.7788}, {"pos": "201", "plan": 1, "x": 0.4388, "y": 0.7483}, {"pos": "202", "plan": 1, "x": 0.4386, "y": 0.7155}, {"pos": "203", "plan": 1, "x": 0.4379, "y": 0.6588}, {"pos": "204", "plan": 1, "x": 0.4377, "y": 0.6072}, {"pos": "205", "plan": 1, "x": 0.4357, "y": 0.546}, {"pos": "206", "plan": 1, "x": 0.4357, "y": 0.4837}, {"pos": "207", "plan": 1, "x": 0.4405, "y": 0.3829}, {"pos": "208", "plan": 1, "x": 0.4431, "y": 0.3047}, {"pos": "209", "plan": 1, "x": 0.4433, "y": 0.2461}, {"pos": "210", "plan": 1, "x": 0.4425, "y": 0.1926}, {"pos": "211", "plan": 1, "x": 0.444, "y": 0.1237}, {"pos": "300", "plan": 1, "x": 0.4651, "y": 0.525}, {"pos": "300", "plan": 1, "x": 0.4654, "y": 0.477}, {"pos": "301", "plan": 1, "x": 0.4653, "y": 0.463}, {"pos": "302", "plan": 1, "x": 0.4658, "y": 0.4319}, {"pos": "303", "plan": 1, "x": 0.4666, "y": 0.4178}, {"pos": "303", "plan": 1, "x": 0.4663, "y": 0.3857}, {"pos": "304", "plan": 1, "x": 0.4687, "y": 0.3692}, {"pos": "305", "plan": 1, "x": 0.4751, "y": 0.3239}, {"pos": "306", "plan": 1, "x": 0.4757, "y": 0.3075}, {"pos": "306", "plan": 1, "x": 0.4671, "y": 0.2889}, {"pos": "307", "plan": 1, "x": 0.466, "y": 0.1506}, {"pos": "308", "plan": 1, "x": 0.4987, "y": 0.1337}, {"pos": "309", "plan": 1, "x": 0.4611, "y": 0.0806}, {"pos": "310", "plan": 1, "x": 0.41, "y": 0.0775}, {"pos": "311", "plan": 1, "x": 0.3581, "y": 0.0947}, {"pos": "311", "plan": 1, "x": 0.3584, "y": 0.1668}, {"pos": "312", "plan": 1, "x": 0.3854, "y": 0.1855}, {"pos": "313", "plan": 1, "x": 0.3853, "y": 0.1995}, {"pos": "313", "plan": 1, "x": 0.4019, "y": 0.2151}, {"pos": "314", "plan": 1, "x": 0.404, "y": 0.229}, {"pos": "315", "plan": 1, "x": 0.4006, "y": 0.2686}, {"pos": "316", "plan": 1, "x": 0.4015, "y": 0.2843}, {"pos": "316", "plan": 1, "x": 0.4016, "y": 0.3157}, {"pos": "317", "plan": 1, "x": 0.4019, "y": 0.3296}, {"pos": "318", "plan": 1, "x": 0.36, "y": 0.4125}, {"pos": "400", "plan": 1, "x": 0.4878, "y": 0.5251}, {"pos": "400", "plan": 1, "x": 0.5048, "y": 0.5249}, {"pos": "400", "plan": 1, "x": 0.5217, "y": 0.5251}, {"pos": "400", "plan": 1, "x": 0.5387, "y": 0.525}, {"pos": "400", "plan": 1, "x": 0.556, "y": 0.525}, {"pos": "400", "plan": 1, "x": 0.5729, "y": 0.5249}, {"pos": "400", "plan": 1, "x": 0.5901, "y": 0.5251}, {"pos": "400", "plan": 1, "x": 0.4876, "y": 0.4772}, {"pos": "400", "plan": 1, "x": 0.5045, "y": 0.4771}, {"pos": "400", "plan": 1, "x": 0.5214, "y": 0.4772}, {"pos": "400", "plan": 1, "x": 0.5384, "y": 0.4771}, {"pos": "400", "plan": 1, "x": 0.5557, "y": 0.4771}, {"pos": "400", "plan": 1, "x": 0.5727, "y": 0.477}, {"pos": "400", "plan": 1, "x": 0.5898, "y": 0.4772}, {"pos": "400", "plan": 1, "x": 0.4876, "y": 0.4631}, {"pos": "400", "plan": 1, "x": 0.5046, "y": 0.463}, {"pos": "400", "plan": 1, "x": 0.5215, "y": 0.4631}, {"pos": "400", "plan": 1, "x": 0.5385, "y": 0.463}, {"pos": "400", "plan": 1, "x": 0.4877, "y": 0.432}, {"pos": "400", "plan": 1, "x": 0.5046, "y": 0.4318}, {"pos": "400", "plan": 1, "x": 0.5215, "y": 0.432}, {"pos": "400", "plan": 1, "x": 0.5385, "y": 0.4319}, {"pos": "400", "plan": 1, "x": 0.4875, "y": 0.4183}, {"pos": "400", "plan": 1, "x": 0.5045, "y": 0.4181}, {"pos": "400", "plan": 1, "x": 0.4877, "y": 0.3859}, {"pos": "400", "plan": 1, "x": 0.5046, "y": 0.3857}, {"pos": "400", "plan": 1, "x": 0.4963, "y": 0.3074}, {"pos": "400", "plan": 1, "x": 0.5132, "y": 0.3073}, {"pos": "400", "plan": 1, "x": 0.4877, "y": 0.2891}, {"pos": "400", "plan": 1, "x": 0.5046, "y": 0.289}, {"pos": "400", "plan": 1, "x": 0.4878, "y": 0.1506}, {"pos": "400", "plan": 1, "x": 0.5048, "y": 0.1504}, {"pos": "400", "plan": 1, "x": 0.539, "y": 0.0975}, {"pos": "400", "plan": 1, "x": 0.5561, "y": 0.0974}, {"pos": "400", "plan": 1, "x": 0.4985, "y": 0.0807}, {"pos": "400", "plan": 1, "x": 0.5155, "y": 0.0806}, {"pos": "400", "plan": 1, "x": 0.4816, "y": 0.0805}, {"pos": "400", "plan": 1, "x": 0.2961, "y": 0.4125}, {"pos": "400", "plan": 1, "x": 0.33, "y": 0.4125}, {"pos": "408", "plan": 1, "x": 0.3432, "y": 0.4124}, {"pos": "400", "plan": 1, "x": 0.3131, "y": 0.4123}, {"pos": "400", "plan": 1, "x": 0.3304, "y": 0.3158}, {"pos": "400", "plan": 1, "x": 0.3643, "y": 0.3158}, {"pos": "400", "plan": 1, "x": 0.3813, "y": 0.3157}, {"pos": "400", "plan": 1, "x": 0.3474, "y": 0.3157}, {"pos": "400", "plan": 1, "x": 0.3311, "y": 0.2846}, {"pos": "400", "plan": 1, "x": 0.3649, "y": 0.2846}, {"pos": "400", "plan": 1, "x": 0.3819, "y": 0.2845}, {"pos": "400", "plan": 1, "x": 0.348, "y": 0.2844}, {"pos": "400", "plan": 1, "x": 0.3304, "y": 0.2151}, {"pos": "400", "plan": 1, "x": 0.3643, "y": 0.2151}, {"pos": "400", "plan": 1, "x": 0.3813, "y": 0.215}, {"pos": "400", "plan": 1, "x": 0.3474, "y": 0.215}, {"pos": "400", "plan": 1, "x": 0.3474, "y": 0.1857}, {"pos": "400", "plan": 1, "x": 0.3656, "y": 0.2293}, {"pos": "400", "plan": 1, "x": 0.3826, "y": 0.2292}, {"pos": "400", "plan": 1, "x": 0.3644, "y": 0.1856}, {"pos": "400", "plan": 1, "x": 0.3475, "y": 0.1998}, {"pos": "400", "plan": 1, "x": 0.3645, "y": 0.1996}, {"pos": "400", "plan": 1, "x": 0.3306, "y": 0.1996}, {"pos": "400", "plan": 1, "x": 0.6078, "y": 0.1308}, {"pos": "400", "plan": 1, "x": 0.6078, "y": 0.0927}, {"pos": "400", "plan": 1, "x": 0.6077, "y": 0.0806}, {"pos": "400", "plan": 1, "x": 0.6079, "y": 0.1052}, {"pos": "400", "plan": 1, "x": 0.6078, "y": 0.1429}, {"pos": "405", "plan": 1, "x": 0.5178, "y": 0.3238}, {"pos": "402", "plan": 1, "x": 0.5386, "y": 0.1337}, {"pos": "402", "plan": 1, "x": 0.5555, "y": 0.1336}, {"pos": "402", "plan": 1, "x": 0.5216, "y": 0.1335}, {"pos": "405", "plan": 1, "x": 0.499, "y": 0.3238}, {"pos": "405", "plan": 1, "x": 0.5099, "y": 0.3688}, {"pos": "405", "plan": 1, "x": 0.4911, "y": 0.3688}, {"pos": "405", "plan": 1, "x": 0.3882, "y": 0.0775}, {"pos": "405", "plan": 1, "x": 0.3694, "y": 0.0775}, {"pos": "405", "plan": 1, "x": 0.3506, "y": 0.0775}, {"pos": "405", "plan": 1, "x": 0.3319, "y": 0.0775}, {"pos": "405", "plan": 1, "x": 0.3121, "y": 0.0776}, {"pos": "405", "plan": 1, "x": 0.2933, "y": 0.0776}, {"pos": "403", "plan": 1, "x": 0.3645, "y": 0.3296}, {"pos": "403", "plan": 1, "x": 0.3814, "y": 0.3295}, {"pos": "403", "plan": 1, "x": 0.3475, "y": 0.3295}, {"pos": "406", "plan": 1, "x": 0.3341, "y": 0.0942}, {"pos": "406", "plan": 1, "x": 0.3155, "y": 0.0942}, {"pos": "406", "plan": 1, "x": 0.2964, "y": 0.0943}, {"pos": "406", "plan": 1, "x": 0.3344, "y": 0.1669}, {"pos": "406", "plan": 1, "x": 0.3159, "y": 0.1669}, {"pos": "406", "plan": 1, "x": 0.2967, "y": 0.1669}, {"pos": "406", "plan": 1, "x": 0.3067, "y": 0.1392}, {"pos": "406", "plan": 1, "x": 0.3068, "y": 0.1257}, {"pos": "406", "plan": 1, "x": 0.3068, "y": 0.1119}, {"pos": "406", "plan": 1, "x": 0.3067, "y": 0.1532}, {"pos": "405", "plan": 1, "x": 0.3786, "y": 0.2687}, {"pos": "405", "plan": 1, "x": 0.3583, "y": 0.5279}, {"pos": "405", "plan": 1, "x": 0.3389, "y": 0.528}, {"pos": "405", "plan": 1, "x": 0.3013, "y": 0.5281}, {"pos": "405", "plan": 1, "x": 0.3207, "y": 0.5281}, {"pos": "400", "plan": 1, "x": 0.2754, "y": 0.4193}, {"pos": "403", "plan": 1, "x": 0.2753, "y": 0.4071}, {"pos": "403", "plan": 1, "x": 0.2753, "y": 0.3948}, {"pos": "403", "plan": 1, "x": 0.2754, "y": 0.3824}, {"pos": "403", "plan": 1, "x": 0.2754, "y": 0.3702}, {"pos": "403", "plan": 1, "x": 0.2754, "y": 0.3577}, {"pos": "405", "plan": 1, "x": 0.3596, "y": 0.2687}, {"pos": "416", "plan": 1, "x": 0.4806, "y": 0.1395}, {"pos": "416", "plan": 1, "x": 0.5068, "y": 0.1744}, {"pos": "416", "plan": 1, "x": 0.5063, "y": 0.204}, {"pos": "416", "plan": 1, "x": 0.4888, "y": 0.221}, {"pos": "416", "plan": 1, "x": 0.5585, "y": 0.251}, {"pos": "416", "plan": 1, "x": 0.5101, "y": 0.2362}, {"pos": "416", "plan": 1, "x": 0.5499, "y": 0.297}, {"pos": "416", "plan": 1, "x": 0.4806, "y": 0.3934}, {"pos": "416", "plan": 1, "x": 0.4805, "y": 0.4084}, {"pos": "416", "plan": 1, "x": 0.5217, "y": 0.4393}, {"pos": "416", "plan": 1, "x": 0.5222, "y": 0.4539}, {"pos": "416", "plan": 1, "x": 0.5393, "y": 0.4846}, {"pos": "416", "plan": 1, "x": 0.5394, "y": 0.5004}, {"pos": "416", "plan": 1, "x": 0.539, "y": 0.515}, {"pos": "416", "plan": 1, "x": 0.3821, "y": 0.4032}, {"pos": "416", "plan": 1, "x": 0.3395, "y": 0.3051}, {"pos": "416", "plan": 1, "x": 0.3389, "y": 0.2914}, {"pos": "416", "plan": 1, "x": 0.3766, "y": 0.2361}, {"pos": "416", "plan": 1, "x": 0.3722, "y": 0.2059}, {"pos": "414", "plan": 1, "x": 0.4063, "y": 0.1902}, {"pos": "416", "plan": 1, "x": 0.3752, "y": 0.1722}, {"pos": "416", "plan": 1, "x": 0.5102, "y": 0.2658}, {"pos": "417", "plan": 1, "x": 0.3749, "y": 0.2572}, {"pos": "418", "plan": 1, "x": 0.5451, "y": 0.3357}, {"pos": "418", "plan": 1, "x": 0.545, "y": 0.3575}, {"pos": "072", "plan": 1, "x": 0.6029, "y": 0.7052}, {"pos": "NB1", "plan": 1, "x": 0.7254, "y": 0.7516}, {"pos": "079", "plan": 2, "x": 0.5908, "y": 0.7322}, {"pos": "025", "plan": 2, "x": 0.1261, "y": 0.8025}, {"pos": "022", "plan": 2, "x": 0.1262, "y": 0.8797}, {"pos": "074", "plan": 2, "x": 0.6534, "y": 0.6685}, {"pos": "027", "plan": 2, "x": 0.3355, "y": 0.9712}, {"pos": "212", "plan": 2, "x": 0.5804, "y": 0.6791}, {"pos": "213", "plan": 2, "x": 0.5102, "y": 0.6755}, {"pos": "215", "plan": 2, "x": 0.3878, "y": 0.6867}, {"pos": "216", "plan": 2, "x": 0.3388, "y": 0.6868}, {"pos": "081", "plan": 2, "x": 0.3033, "y": 0.6785}, {"pos": "082", "plan": 2, "x": 0.2638, "y": 0.4761}, {"pos": "082", "plan": 2, "x": 0.4633, "y": 0.4771}, {"pos": "217", "plan": 2, "x": 0.2749, "y": 0.6794}, {"pos": "218", "plan": 2, "x": 0.2437, "y": 0.6804}, {"pos": "219", "plan": 2, "x": 0.216, "y": 0.6804}, {"pos": "319", "plan": 2, "x": 0.6258, "y": 0.6432}, {"pos": "320", "plan": 2, "x": 0.4207, "y": 0.5218}, {"pos": "321", "plan": 2, "x": 0.4219, "y": 0.5528}, {"pos": "321", "plan": 2, "x": 0.3591, "y": 0.6586}, {"pos": "080", "plan": 2, "x": 0.3076, "y": 0.7159}, {"pos": "322", "plan": 2, "x": 0.3354, "y": 0.6527}, {"pos": "322", "plan": 2, "x": 0.3076, "y": 0.6468}, {"pos": "323", "plan": 2, "x": 0.2787, "y": 0.648}, {"pos": "324", "plan": 2, "x": 0.1684, "y": 0.6478}, {"pos": "325", "plan": 2, "x": 0.1686, "y": 0.6915}, {"pos": "326", "plan": 2, "x": 0.2796, "y": 0.7189}, {"pos": "327", "plan": 2, "x": 0.4328, "y": 0.8895}, {"pos": "328", "plan": 2, "x": 0.4375, "y": 0.9411}, {"pos": "328", "plan": 2, "x": 0.4898, "y": 0.8987}, {"pos": "410", "plan": 2, "x": 0.6263, "y": 0.7504}, {"pos": "410", "plan": 2, "x": 0.6263, "y": 0.7225}, {"pos": "410", "plan": 2, "x": 0.5151, "y": 0.8987}, {"pos": "410", "plan": 2, "x": 0.5355, "y": 0.8987}, {"pos": "411", "plan": 2, "x": 0.55, "y": 0.8985}, {"pos": "411", "plan": 2, "x": 0.6297, "y": 0.9339}, {"pos": "410", "plan": 2, "x": 0.5949, "y": 0.934}, {"pos": "410", "plan": 2, "x": 0.6153, "y": 0.934}, {"pos": "410", "plan": 2, "x": 0.5747, "y": 0.9339}, {"pos": "410", "plan": 2, "x": 0.5542, "y": 0.9339}, {"pos": "410", "plan": 2, "x": 0.4105, "y": 0.9413}, {"pos": "410", "plan": 2, "x": 0.6263, "y": 0.8055}, {"pos": "410", "plan": 2, "x": 0.6263, "y": 0.7776}, {"pos": "410", "plan": 2, "x": 0.6262, "y": 0.8603}, {"pos": "410", "plan": 2, "x": 0.6262, "y": 0.8324}, {"pos": "410", "plan": 2, "x": 0.6261, "y": 0.8884}, {"pos": "411", "plan": 2, "x": 0.6261, "y": 0.9108}, {"pos": "411", "plan": 2, "x": 0.3076, "y": 0.932}, {"pos": "411", "plan": 2, "x": 0.3075, "y": 0.7509}, {"pos": "411", "plan": 2, "x": 0.3074, "y": 0.4863}, {"pos": "410", "plan": 2, "x": 0.3098, "y": 0.9409}, {"pos": "410", "plan": 2, "x": 0.3302, "y": 0.9409}, {"pos": "410", "plan": 2, "x": 0.2551, "y": 0.9417}, {"pos": "410", "plan": 2, "x": 0.2755, "y": 0.9417}, {"pos": "410", "plan": 2, "x": 0.1938, "y": 0.9416}, {"pos": "410", "plan": 2, "x": 0.2142, "y": 0.9415}, {"pos": "410", "plan": 2, "x": 0.1752, "y": 0.9419}, {"pos": "410", "plan": 2, "x": 0.1686, "y": 0.9221}, {"pos": "411", "plan": 2, "x": 0.28, "y": 0.9368}, {"pos": "411", "plan": 2, "x": 0.1685, "y": 0.9384}, {"pos": "410", "plan": 2, "x": 0.3078, "y": 0.8267}, {"pos": "410", "plan": 2, "x": 0.3076, "y": 0.8815}, {"pos": "410", "plan": 2, "x": 0.3076, "y": 0.8536}, {"pos": "410", "plan": 2, "x": 0.3075, "y": 0.9096}, {"pos": "410", "plan": 2, "x": 0.3077, "y": 0.7988}, {"pos": "410", "plan": 2, "x": 0.3076, "y": 0.7711}, {"pos": "410", "plan": 2, "x": 0.1686, "y": 0.783}, {"pos": "410", "plan": 2, "x": 0.1684, "y": 0.8378}, {"pos": "410", "plan": 2, "x": 0.1684, "y": 0.8099}, {"pos": "410", "plan": 2, "x": 0.1686, "y": 0.7551}, {"pos": "410", "plan": 2, "x": 0.1684, "y": 0.7274}, {"pos": "410", "plan": 2, "x": 0.1684, "y": 0.8659}, {"pos": "410", "plan": 2, "x": 0.1685, "y": 0.8939}, {"pos": "410", "plan": 2, "x": 0.2798, "y": 0.9199}, {"pos": "410", "plan": 2, "x": 0.28, "y": 0.8109}, {"pos": "410", "plan": 2, "x": 0.2799, "y": 0.8656}, {"pos": "410", "plan": 2, "x": 0.2798, "y": 0.8377}, {"pos": "410", "plan": 2, "x": 0.2798, "y": 0.8937}, {"pos": "410", "plan": 2, "x": 0.28, "y": 0.7829}, {"pos": "410", "plan": 2, "x": 0.2798, "y": 0.7553}, {"pos": "410", "plan": 2, "x": 0.2784, "y": 0.4777}, {"pos": "410", "plan": 2, "x": 0.2786, "y": 0.5333}, {"pos": "410", "plan": 2, "x": 0.2784, "y": 0.5881}, {"pos": "410", "plan": 2, "x": 0.2784, "y": 0.5602}, {"pos": "410", "plan": 2, "x": 0.2783, "y": 0.6162}, {"pos": "410", "plan": 2, "x": 0.2785, "y": 0.5054}, {"pos": "410", "plan": 2, "x": 0.1683, "y": 0.5316}, {"pos": "410", "plan": 2, "x": 0.1681, "y": 0.5864}, {"pos": "410", "plan": 2, "x": 0.1681, "y": 0.5585}, {"pos": "410", "plan": 2, "x": 0.1681, "y": 0.6145}, {"pos": "410", "plan": 2, "x": 0.3079, "y": 0.5325}, {"pos": "410", "plan": 2, "x": 0.3078, "y": 0.5873}, {"pos": "410", "plan": 2, "x": 0.3078, "y": 0.5593}, {"pos": "410", "plan": 2, "x": 0.3077, "y": 0.6153}, {"pos": "410", "plan": 2, "x": 0.3079, "y": 0.5046}, {"pos": "410", "plan": 2, "x": 0.3355, "y": 0.5408}, {"pos": "410", "plan": 2, "x": 0.3353, "y": 0.5956}, {"pos": "410", "plan": 2, "x": 0.3353, "y": 0.5677}, {"pos": "410", "plan": 2, "x": 0.3353, "y": 0.6237}, {"pos": "410", "plan": 2, "x": 0.3355, "y": 0.5129}, {"pos": "410", "plan": 2, "x": 0.3591, "y": 0.5407}, {"pos": "410", "plan": 2, "x": 0.3589, "y": 0.5955}, {"pos": "410", "plan": 2, "x": 0.3589, "y": 0.5676}, {"pos": "410", "plan": 2, "x": 0.3588, "y": 0.6236}, {"pos": "410", "plan": 2, "x": 0.359, "y": 0.5128}, {"pos": "410", "plan": 2, "x": 0.1683, "y": 0.5037}, {"pos": "411", "plan": 2, "x": 0.1685, "y": 0.4864}, {"pos": "410", "plan": 2, "x": 0.3878, "y": 0.8895}, {"pos": "410", "plan": 2, "x": 0.4082, "y": 0.8895}, {"pos": "410", "plan": 2, "x": 0.3275, "y": 0.8894}, {"pos": "410", "plan": 2, "x": 0.3471, "y": 0.8895}, {"pos": "410", "plan": 2, "x": 0.3675, "y": 0.8895}, {"pos": "410", "plan": 2, "x": 0.3773, "y": 0.5222}, {"pos": "410", "plan": 2, "x": 0.3977, "y": 0.5222}, {"pos": "410", "plan": 2, "x": 0.3773, "y": 0.5528}, {"pos": "410", "plan": 2, "x": 0.3978, "y": 0.5528}, {"pos": "410", "plan": 2, "x": 0.1728, "y": 0.4815}, {"pos": "410", "plan": 2, "x": 0.1932, "y": 0.4815}, {"pos": "412", "plan": 2, "x": 0.3343, "y": 0.4811}, {"pos": "412", "plan": 2, "x": 0.3538, "y": 0.4812}, {"pos": "412", "plan": 2, "x": 0.3743, "y": 0.4812}, {"pos": "412", "plan": 2, "x": 0.3945, "y": 0.4812}, {"pos": "412", "plan": 2, "x": 0.4149, "y": 0.4812}, {"pos": "331", "plan": 2, "x": 0.4396, "y": 0.4812}, {"pos": "412", "plan": 2, "x": 0.5143, "y": 0.4805}, {"pos": "412", "plan": 2, "x": 0.5339, "y": 0.4805}, {"pos": "412", "plan": 2, "x": 0.5543, "y": 0.4805}, {"pos": "412", "plan": 2, "x": 0.5746, "y": 0.4806}, {"pos": "412", "plan": 2, "x": 0.626, "y": 0.5224}, {"pos": "412", "plan": 2, "x": 0.6258, "y": 0.5493}, {"pos": "412", "plan": 2, "x": 0.6258, "y": 0.5772}, {"pos": "412", "plan": 2, "x": 0.6258, "y": 0.6053}, {"pos": "412", "plan": 2, "x": 0.5953, "y": 0.4808}, {"pos": "413", "plan": 2, "x": 0.6188, "y": 0.4757}, {"pos": "413", "plan": 2, "x": 0.6273, "y": 0.489}, {"pos": "319", "plan": 2, "x": 0.4909, "y": 0.4812}, {"pos": "412", "plan": 2, "x": 0.3148, "y": 0.4814}, {"pos": "414", "plan": 2, "x": 0.3046, "y": 0.4393}, {"pos": "414", "plan": 2, "x": 0.3268, "y": 0.4394}, {"pos": "414", "plan": 2, "x": 0.3723, "y": 0.4396}, {"pos": "414", "plan": 2, "x": 0.3501, "y": 0.4396}, {"pos": "414", "plan": 2, "x": 0.3945, "y": 0.4395}, {"pos": "414", "plan": 2, "x": 0.4167, "y": 0.4396}, {"pos": "414", "plan": 2, "x": 0.4389, "y": 0.4395}, {"pos": "414", "plan": 2, "x": 0.6136, "y": 0.4398}, {"pos": "414", "plan": 2, "x": 0.5015, "y": 0.4397}, {"pos": "414", "plan": 2, "x": 0.5469, "y": 0.44}, {"pos": "414", "plan": 2, "x": 0.5247, "y": 0.4399}, {"pos": "414", "plan": 2, "x": 0.5691, "y": 0.4399}, {"pos": "414", "plan": 2, "x": 0.5913, "y": 0.44}, {"pos": "414", "plan": 2, "x": 0.5078, "y": 0.3546}, {"pos": "414", "plan": 2, "x": 0.5533, "y": 0.3548}, {"pos": "414", "plan": 2, "x": 0.5311, "y": 0.3547}, {"pos": "414", "plan": 2, "x": 0.5755, "y": 0.3547}, {"pos": "414", "plan": 2, "x": 0.5977, "y": 0.3548}, {"pos": "414", "plan": 2, "x": 0.6182, "y": 0.3402}, {"pos": "414", "plan": 2, "x": 0.6182, "y": 0.371}, {"pos": "414", "plan": 2, "x": 0.6183, "y": 0.4027}, {"pos": "414", "plan": 2, "x": 0.6183, "y": 0.4334}, {"pos": "220", "plan": 2, "x": 0.1827, "y": 0.6813}, {"pos": "214", "plan": 2, "x": 0.4266, "y": 0.6871}, {"pos": "420", "plan": 2, "x": 0.4742, "y": 0.9049}, {"pos": "420", "plan": 2, "x": 0.2664, "y": 0.7775}, {"pos": "420", "plan": 2, "x": 0.4375, "y": 0.5466}, {"pos": "421", "plan": 2, "x": 0.445, "y": 0.9031}, {"pos": "414", "plan": 2, "x": 0.5038, "y": 0.3136}, {"pos": "422", "plan": 2, "x": 0.4893, "y": 0.345}, {"pos": "423", "plan": 2, "x": 0.5333, "y": 0.097}, {"pos": "423", "plan": 2, "x": 0.5338, "y": 0.1453}, {"pos": "415", "plan": 2, "x": 0.2704, "y": 0.9629}, {"pos": "415", "plan": 2, "x": 0.186, "y": 0.9625}, {"pos": "415", "plan": 2, "x": 0.1523, "y": 0.7518}, {"pos": "415", "plan": 2, "x": 0.1515, "y": 0.5555}, {"pos": "415", "plan": 2, "x": 0.3594, "y": 0.9629}, {"pos": "415", "plan": 2, "x": 0.5795, "y": 0.9641}]};
 // Identyfikator sklepu — oddziela dane współdzielone w Supabase (Zgłoszenia,
-// Zapotrzebowanie, Przygotowane, Krótkofalówka) między różnymi sklepami,
+// Zapotrzebowanie, Przygotowane) między różnymi sklepami,
 // które używają tego samego backendu. "de411" to fallback dla starszych
 // wersji data.json bez pola storeId.
 const STORE_ID = RAW_DATA.storeId || "de411";
@@ -916,9 +820,9 @@ function thumbHtml(pos){
 }
 
 /* ============================================================
-   ŁĄCZNOŚĆ (Zgłoszenia + Krótkofalówka) — Supabase backend
+   ŁĄCZNOŚĆ (Zgłoszenia) — Supabase backend
    Osobny projekt "OBI DE-411 Banery" (Supabase), niezależny od
-   HEINZE Operations. Prosty realtime: teksty + krótkie klipy głosowe.
+   HEINZE Operations.
    ============================================================ */
 const SUPA_URL = "https://cpfmrpijspxnxssifuap.supabase.co";
 const SUPA_KEY = "sb_publishable_XBhmOfexpNgS01jjghnMGw_Fpyk2rIB";
@@ -1072,9 +976,7 @@ function setLang(next){
   if(typeof updatePlanSwitchUI === "function") updatePlanSwitchUI();
   render();
   if(typeof lastSyncStatus !== "undefined") setSyncDot(lastSyncStatus);
-  if(typeof zgInited !== "undefined" && zgInited) try{ renderZgForm(); renderZgList(); }catch(e){}
-  if(typeof zapInited !== "undefined" && zapInited) try{ renderZapForm(); renderZapList(); renderZapZgList(); }catch(e){}
-  if(typeof komInited !== "undefined" && komInited) try{ renderKomChannels(); renderKomComposer(); renderKomMessages(); renderKomPresence(); }catch(e){}
+  if(typeof zgInited !== "undefined" && zgInited) try{ renderZgForm(); renderZgList(); renderZapZgList(); }catch(e){}
 }
 function updateLangBtn(){
   const btn = document.getElementById("lang-toggle");
@@ -1105,7 +1007,6 @@ const I18N = {
     "tab.zgloszenia": "🛠️ Zgłoszenia",
     "tab.podglad": "📊 Podgląd",
     "tab.inwentaryzacja": "📦 Inwentaryzacja",
-    "tab.komunikator": "📻 Krótkofalówka",
 
     "view.gotowe.intro": "Wspólna baza dla ekipy szykującej i montującej: tu zaznaczacie ile sztuk z każdej pozycji jest już wycięte/przygotowane do zawieszenia — stuknij baner na planie/liście albo użyj –/+. To osobny krok od dostawy (Inwentaryzacja) i od samego montażu (Plan sklepu) — inna warstwa (dostawa → przygotowanie → zawieszenie). Widoczne na żywo na wszystkich urządzeniach.",
     "view.zapotrzebowanie.intro": "Wspólna tablica dla ekipy szykującej i montującej — zaznacz, jaki baner jest Ci potrzebny teraz, a druga ekipa to zobaczy na żywo i przygotuje/dostarczy. Widoczne na wszystkich urządzeniach.",
@@ -1113,7 +1014,6 @@ const I18N = {
     "view.naklejki.intro": "Naklejki i folie w przedsionku, na drzwiach i na podeście GC — inny rodzaj montażu niż banery, więc osobna lista. Pozycje ze znaczkiem 📍 mają też swój numerek na Planie sklepu.",
     "view.zgloszenia.intro": "Zgłoś, jaki baner Ci potrzebny i jakiego mocowania użyłeś/planujesz użyć (haki, łańcuchy, wkręcane w drewno, inne) — z opisem i zdjęciem, żeby cała ekipa widziała rozwiązanie. To NIE trafia mailem do Mike'a — tylko braki z Inwentaryzacji tam idą.",
     "view.inwentaryzacja.intro": "Na początku pracy sprawdź, co fizycznie przyjechało z listy zamówienia. Stuknij – / + przy pozycji, żeby wpisać ile sztuk dotarło, albo otwórz pozycję i użyj szybkich przycisków. Braki i uszkodzenia lądują automatycznie w raporcie do wysłania do Mike'a poniżej.",
-    "view.komunikator.intro": "Prawdziwa rozmowa na żywo — przytrzymaj 🎙️ i mów, jak w krótkofalówce. Słyszy Cię każdy, kto ma w tej chwili otwarty ten sam kanał. Wybierz kanał u góry.",
 
     "ready.toolbar.title": "Gotowość do zawieszenia na planie",
     "ready.legend.todo": "do przygotowania",
@@ -1277,52 +1177,12 @@ const I18N = {
     "zg.markDone": "Oznacz jako zrobione",
     "zg.done": "✓ Zrobione",
     "zg.byLabel": "👤 {name}",
-    "zap.openInZap.title": "🛠️ Otwarte zgłoszenia ({n})",
+    "zap.openInZap.title": "📣 Potrzebne banery ({n})",
+    "zg.form.clearPosTitle": "Zmień wybór",
+    "zap.empty": "Brak zgłoszonego zapotrzebowania — jak ekipa montująca zgłosi w Zgłoszeniach, że coś jest potrzebne, pojawi się tutaj.",
 
-    "zap.form.posLabel": "Który baner jest potrzebny",
-    "zap.form.posPlaceholder": "wpisz numer pozycji albo nazwę…",
-    "zap.form.clearTitle": "Zmień wybór",
-    "zap.form.qtyLabel": "Ile sztuk potrzebne",
-    "zap.form.ofOrdered": "z {maxQty} wg zamówienia",
-    "zap.form.noteLabel": "Notatka (opcjonalnie)",
-    "zap.form.notePlaceholder": "np. potrzebne na już, brakuje do fasady…",
-    "zap.form.submit": "📣 Zgłoś zapotrzebowanie",
-    "zap.form.noConn": "⚠ Brak połączenia z serwerem — sprawdź internet.",
-    "zap.toast.noConn": "Brak połączenia z serwerem",
-    "zap.toast.pickPos": "Wybierz pozycję",
-    "zap.sending": "Wysyłanie…",
-    "zap.toast.sent": "📣 Zgłoszono zapotrzebowanie: {pos}",
-    "zap.error.send": "⚠ Nie udało się wysłać ({err}) — spróbuj ponownie.",
-    "zap.error.save": "⚠ Nie udało się zapisać — spróbuj ponownie",
-    "zap.card.needed": "potrzeba: {qty} szt. · zgłosił(a): 👤 {name}",
-    "zap.card.fulfilledBy": " · dostarczył(a): 👤 {name}",
-    "zap.card.fulfilledByFallback": "?",
-    "zap.card.fulfillBtn": "Dostarczone",
-    "zap.card.fulfilledBtn": "✓ Dostarczone",
-    "zap.empty": "Brak zgłoszonego zapotrzebowania — jak coś jest potrzebne, zgłoś to powyżej.",
-    "zap.section.needNow": "Potrzebne teraz ({n})",
-    "zap.section.recentlyFulfilled": "Ostatnio dostarczone",
 
-    "kom.channel.general": "📣 Wszyscy",
-    "kom.channel.baner": "🧵 Ekipa Baner",
-    "kom.channel.montaz": "🔧 Ekipa Montaż",
-    "kom.empty": "Brak wiadomości na tym kanale — napisz coś, albo przytrzymaj 🎙️ i pogadaj na żywo.",
-    "kom.offline": "⚠ Brak połączenia z serwerem — krótkofalówka niedostępna offline.",
-    "kom.presence.speaking": "🔴 Mówi: {name}",
-    "kom.presence.online": "Na kanale na żywo: {names}",
-    "kom.presence.empty": "Nikt jeszcze nie dołączył na żywo do tego kanału",
-    "kom.you": "Jesteś: {name} (zmień)",
-    "kom.you.fallback": "—",
-    "kom.text.placeholder": "Napisz wiadomość…",
-    "kom.send.title": "Wyślij",
-    "kom.ptt.title": "Przytrzymaj, aby mówić na żywo",
-    "kom.namePrompt": "Jak się nazywasz?",
-    "kom.audioUnlock": "🔊 Włącz dźwięk krótkofalówki",
-    "kom.toast.noConn": "Brak połączenia z serwerem",
-    "kom.toast.noMic": "⚠ Brak dostępu do mikrofonu — sprawdź uprawnienia przeglądarki",
-    "kom.toast.sendFail": "⚠ Nie udało się wysłać ({err})",
-
-    "crew.namePrompt": "Jak się nazywasz? (widoczne dla ekipy w Zgłoszeniach i Krótkofalówce)",
+    "crew.namePrompt": "Jak się nazywasz? (widoczne dla ekipy w Zgłoszeniach)",
     "crew.fallback": "Ekipa",
 
     "sync.saving": "Zapisywanie…",
@@ -1370,7 +1230,6 @@ const I18N = {
     "tab.zgloszenia": "🛠️ Meldungen",
     "tab.podglad": "📊 Übersicht",
     "tab.inwentaryzacja": "📦 Wareneingang",
-    "tab.komunikator": "📻 Funkgerät",
 
     "view.gotowe.intro": "Gemeinsame Übersicht für das Vorbereitungs- und das Montageteam: Hier markiert ihr, wie viele Stück jeder Position schon ausgeschnitten/zum Aufhängen bereit sind — tippt den Banner auf dem Plan/in der Liste an oder nutzt –/+. Das ist ein eigener Schritt, getrennt von der Anlieferung (Wareneingang) und der eigentlichen Montage (Filialplan) — eine eigene Ebene (Anlieferung → Vorbereitung → Aufhängen). Live sichtbar auf allen Geräten.",
     "view.zapotrzebowanie.intro": "Gemeinsame Tafel für das Vorbereitungs- und das Montageteam — markiere, welchen Banner du jetzt brauchst, das andere Team sieht es live und bereitet ihn vor/liefert ihn. Sichtbar auf allen Geräten.",
@@ -1378,7 +1237,6 @@ const I18N = {
     "view.naklejki.intro": "Aufkleber und Folien im Windfang, an den Türen und auf dem Podest im Gartencenter — eine andere Montageart als Banner, deshalb eine eigene Liste. Positionen mit dem 📍-Symbol haben zusätzlich eine eigene Nummer auf dem Filialplan.",
     "view.zgloszenia.intro": "Melde, welchen Banner du brauchst und welche Befestigung du verwendet hast/verwenden willst (Haken, Ketten, in Holz geschraubt, andere) — mit Beschreibung und Foto, damit das ganze Team die Lösung sieht. Das geht NICHT per Mail an Mike — nur Fehlmengen aus dem Wareneingang werden dorthin gemeldet.",
     "view.inwentaryzacja.intro": "Prüfe zu Arbeitsbeginn, was laut Bestellliste tatsächlich angekommen ist. Tippe – / + bei der Position an, um die angelieferte Stückzahl einzutragen, oder öffne die Position und nutze die Schnellauswahl. Fehlmengen und Schäden landen automatisch im Bericht an Mike weiter unten.",
-    "view.komunikator.intro": "Echtes Live-Gespräch — halte 🎙️ gedrückt und sprich, wie bei einem Funkgerät. Jeder, der diesen Kanal gerade geöffnet hat, hört dich. Kanal oben auswählen.",
 
     "ready.toolbar.title": "Bereitschaft zum Aufhängen auf dem Plan",
     "ready.legend.todo": "vorzubereiten",
@@ -1542,52 +1400,12 @@ const I18N = {
     "zg.markDone": "Als erledigt markieren",
     "zg.done": "✓ Erledigt",
     "zg.byLabel": "👤 {name}",
-    "zap.openInZap.title": "🛠️ Offene Meldungen ({n})",
+    "zap.openInZap.title": "📣 Benötigte Banner ({n})",
+    "zg.form.clearPosTitle": "Auswahl ändern",
+    "zap.empty": "Kein gemeldeter Bedarf — sobald das Montageteam in Meldungen etwas meldet, erscheint es hier.",
 
-    "zap.form.posLabel": "Welcher Banner wird gebraucht",
-    "zap.form.posPlaceholder": "Positionsnummer oder Name eingeben…",
-    "zap.form.clearTitle": "Auswahl ändern",
-    "zap.form.qtyLabel": "Wie viele Stück werden gebraucht",
-    "zap.form.ofOrdered": "von {maxQty} laut Bestellung",
-    "zap.form.noteLabel": "Notiz (optional)",
-    "zap.form.notePlaceholder": "z. B. sofort benötigt, fehlt für die Fassade…",
-    "zap.form.submit": "📣 Bedarf melden",
-    "zap.form.noConn": "⚠ Keine Verbindung zum Server — Internet prüfen.",
-    "zap.toast.noConn": "Keine Verbindung zum Server",
-    "zap.toast.pickPos": "Wähle eine Position",
-    "zap.sending": "Wird gesendet…",
-    "zap.toast.sent": "📣 Bedarf gemeldet: {pos}",
-    "zap.error.send": "⚠ Senden fehlgeschlagen ({err}) — bitte erneut versuchen.",
-    "zap.error.save": "⚠ Speichern fehlgeschlagen — bitte erneut versuchen",
-    "zap.card.needed": "benötigt: {qty} Stk. · gemeldet von: 👤 {name}",
-    "zap.card.fulfilledBy": " · geliefert von: 👤 {name}",
-    "zap.card.fulfilledByFallback": "?",
-    "zap.card.fulfillBtn": "Geliefert",
-    "zap.card.fulfilledBtn": "✓ Geliefert",
-    "zap.empty": "Kein gemeldeter Bedarf — falls etwas gebraucht wird, oben melden.",
-    "zap.section.needNow": "Jetzt benötigt ({n})",
-    "zap.section.recentlyFulfilled": "Zuletzt geliefert",
 
-    "kom.channel.general": "📣 Alle",
-    "kom.channel.baner": "🧵 Team Banner",
-    "kom.channel.montaz": "🔧 Team Montage",
-    "kom.empty": "Noch keine Nachrichten in diesem Kanal — schreib etwas, oder halte 🎙️ gedrückt und sprich live.",
-    "kom.offline": "⚠ Keine Verbindung zum Server — Funkgerät offline nicht verfügbar.",
-    "kom.presence.speaking": "🔴 Spricht: {name}",
-    "kom.presence.online": "Live im Kanal: {names}",
-    "kom.presence.empty": "Noch niemand ist diesem Kanal live beigetreten",
-    "kom.you": "Du bist: {name} (ändern)",
-    "kom.you.fallback": "—",
-    "kom.text.placeholder": "Nachricht schreiben…",
-    "kom.send.title": "Senden",
-    "kom.ptt.title": "Gedrückt halten, um live zu sprechen",
-    "kom.namePrompt": "Wie heißt du?",
-    "kom.audioUnlock": "🔊 Ton des Funkgeräts aktivieren",
-    "kom.toast.noConn": "Keine Verbindung zum Server",
-    "kom.toast.noMic": "⚠ Kein Mikrofonzugriff — Browserberechtigungen prüfen",
-    "kom.toast.sendFail": "⚠ Senden fehlgeschlagen ({err})",
-
-    "crew.namePrompt": "Wie heißt du? (sichtbar für das Team in Meldungen und im Funkgerät)",
+    "crew.namePrompt": "Wie heißt du? (sichtbar für das Team in Meldungen)",
     "crew.fallback": "Team",
 
     "sync.saving": "Wird gespeichert…",
@@ -2222,9 +2040,6 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     }
     if(btn.dataset.tab === "zapotrzebowanie"){
       initZapotrzebowanie();
-    }
-    if(btn.dataset.tab === "komunikator"){
-      initKomunikator();
     }
   });
 });
@@ -3693,18 +3508,36 @@ let zgReports = [];
 let zgInited = false;
 let zgPendingFile = null;
 let zgSelectedMount = null;
+let zgSelectedPos = null;
 
 function zgPublicUrl(path){
   if(!supa || !path) return null;
   try{ return supa.storage.from("report-photos").getPublicUrl(path).data.publicUrl; }catch(e){ return null; }
 }
 
+// Pole pozycji w formularzu Zgłoszeń — podłączone do katalogu (ten sam
+// mechanizm wyszukiwania co dawniej w Zapotrzebowaniu: findPosMatches/THUMBS/
+// ITEMS_BY_POS), żeby zgłoszenie od razu niosło rozpoznawalny numer pozycji
+// i miniaturkę. Wybór z listy jest opcjonalny — jeśli ktoś po prostu wpisze
+// tekst i nie kliknie podpowiedzi, wysyłamy ten tekst tak jak dawniej
+// (na Roger'a prośbę: Zapotrzebowanie ma być zasilane Zgłoszeniami, więc to
+// pole musi umieć wskazać realną pozycję z katalogu, a nie zostać wolnym
+// tekstem bez struktury).
 function renderZgForm(){
   const host = document.getElementById("zg-form-wrap");
+  const it = zgSelectedPos ? ITEMS_BY_POS[zgSelectedPos] : null;
   host.innerHTML = `
     <div class="zg-form">
       <div class="field-lbl">${t("zg.form.posLabel")}</div>
-      <input type="text" id="zg-pos" placeholder="${t("zg.form.posPlaceholder")}">
+      <input type="text" id="zg-pos-input" placeholder="${t("zg.form.posPlaceholder")}" autocomplete="off" value="${it ? escapeHtml(it.pos + " — " + it.name) : ""}">
+      <div id="zg-pos-results"></div>
+      ${it ? `
+        <div class="zg-pos-selected">
+          ${thumbHtml(it.pos)}
+          <div><b>${it.pos}</b><div class="sub" style="margin-top:2px;">${escapeHtml(it.name)}</div></div>
+          <button type="button" id="zg-clear-pos" title="${t("zg.form.clearPosTitle")}">✕</button>
+        </div>
+      ` : ""}
       <div class="field-lbl">${t("zg.form.mountLabel")}</div>
       <div class="zg-mount-grid" id="zg-mount-grid">
         ${Object.entries(mountLabels()).map(([k,l]) => `<button type="button" data-mount="${k}">${l}</button>`).join("")}
@@ -3722,6 +3555,29 @@ function renderZgForm(){
       <div class="sub" id="zg-status-line" style="margin-top:8px;"></div>
     </div>
   `;
+  const posInput = host.querySelector("#zg-pos-input");
+  const posResults = host.querySelector("#zg-pos-results");
+  function drawMatches(q){
+    const matches = findPosMatches(q);
+    posResults.innerHTML = "";
+    posResults.classList.toggle("show", matches.length > 0);
+    matches.forEach(x => {
+      const row = document.createElement("div");
+      row.className = "opt";
+      row.innerHTML = `<img src="${THUMBS[x.pos] || ""}" onerror="this.style.visibility='hidden'"><b>${x.pos}</b><span>${escapeHtml(x.name)}</span>`;
+      row.addEventListener("click", () => {
+        zgSelectedPos = x.pos;
+        renderZgForm();
+      });
+      posResults.appendChild(row);
+    });
+  }
+  if(posInput){
+    posInput.addEventListener("input", e => drawMatches(e.target.value));
+    posInput.addEventListener("focus", () => { if(!it) drawMatches(posInput.value); });
+  }
+  const clearPosBtn = host.querySelector("#zg-clear-pos");
+  if(clearPosBtn) clearPosBtn.addEventListener("click", () => { zgSelectedPos = null; renderZgForm(); });
   host.querySelectorAll("#zg-mount-grid button").forEach(b => {
     b.addEventListener("click", () => {
       zgSelectedMount = b.dataset.mount;
@@ -3770,14 +3626,15 @@ async function submitZgReport(){
         photoPath = `zg-${STORE_ID}-${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
         await withRetry(() => supa.storage.from("report-photos").upload(photoPath, zgPendingFile));
       }
-      const posRef = (document.getElementById("zg-pos").value || "").trim() || null;
+      const posInputVal = (document.getElementById("zg-pos-input")?.value || "").trim();
+      const posRef = zgSelectedPos || posInputVal || null;
       const desc = (document.getElementById("zg-desc").value || "").trim() || null;
       await withRetry(() => supa.from("reports").insert({
         store_id: STORE_ID, sender_name: name, pos_ref: posRef, mounting: zgSelectedMount,
         description: desc, photo_path: photoPath, status: "open"
       }));
       showToast(t("zg.toast.sent"));
-      zgPendingFile = null; zgSelectedMount = null;
+      zgPendingFile = null; zgSelectedMount = null; zgSelectedPos = null;
       renderZgForm();
     }catch(e){
       console.error("submitZgReport", errMsg(e), e);
@@ -3794,6 +3651,16 @@ function zgTimeLabel(iso){
   }catch(e){ return ""; }
 }
 
+// Jeśli pos_ref pasuje do pozycji w katalogu (bo zgłoszenie powstało przez
+// nowy picker w renderZgForm), pokazujemy też nazwę z katalogu — dzięki temu
+// karta w Zgłoszeniach/Zapotrzebowaniu od razu mówi, o jaki dokładnie baner
+// chodzi, a nie tylko surowy numer/tekst.
+function zgPosLabel(r){
+  const raw = r.pos_ref || t("zg.fallbackTitle");
+  const it = r.pos_ref ? ITEMS_BY_POS[r.pos_ref] : null;
+  return it ? `${it.pos} — ${it.name}` : raw;
+}
+
 function renderZgList(){
   const host = document.getElementById("zg-list");
   if(!zgReports.length){
@@ -3806,7 +3673,7 @@ function renderZgList(){
       const url = zgPublicUrl(r.photo_path);
       card.innerHTML = `
         <div class="zg-card-top">
-          <b>${escapeHtml(r.pos_ref || t("zg.fallbackTitle"))}</b>
+          <b>${escapeHtml(zgPosLabel(r))}</b>
           <span class="zg-when">${zgTimeLabel(r.created_at)}</span>
         </div>
         <div class="zg-tag">${mountLabels()[r.mounting] || r.mounting}</div>
@@ -3852,191 +3719,33 @@ async function initZgloszenia(){
 }
 
 /* ============================================================
-   ZAPOTRZEBOWANIE — wspólna tablica dla ekipy szykującej banery
-   i ekipy montującej. Ktoś zaznacza "potrzebuję pozycję X (ile
-   sztuk)", druga ekipa widzi to na żywo na każdym urządzeniu i
-   oznacza "dostarczone", gdy zrobi/dowiezie. Supabase-backed,
-   realtime na wszystkich ekranach (tablet w sklepie + telefony).
+   ZAPOTRZEBOWANIE — NIE ma już własnego formularza. Na wyraźną
+   prośbę Rogera (2026-09-20: "czyścimy okno zapotrzebowanie z
+   możliwości wpisania baneru wraz z uwagą i podłączamy pod to
+   zgłoszenia") ta zakładka jest teraz tylko żywym podglądem
+   otwartych Zgłoszeń (tabela "reports") — czyli tego samego, co
+   ekipa montująca zgłasza w zakładce Zgłoszenia (z rodzajem
+   mocowania, opisem, zdjęciem, i — od tej zmiany — pozycją z
+   katalogu, patrz renderZgForm). Ekipa robiąca banery widzi więc
+   zapotrzebowanie od razu, bez osobnego, zdublowanego wpisywania.
+   Stara tabela "demand_requests" i jej formularz zostały usunięte
+   (kod usunięty, dane w Supabase pozostały nietknięte na wszelki
+   wypadek, ale apka już z nich nie korzysta).
+   Dane/subskrypcja są w 100% współdzielone ze Zgłoszeniami (ta sama
+   tablica zgReports) — patrz initZgloszenia/upsertZgReport.
    ============================================================ */
-let zapRequests = [];
 let zapInited = false;
-let zapSelectedPos = null;
-let zapQty = 1;
 
-function zapTimeLabel(iso){
-  try{
-    const d = new Date(iso);
-    return d.toLocaleDateString(t("common.locale"),{day:"2-digit",month:"2-digit"}) + " " + d.toLocaleTimeString(t("common.locale"),{hour:"2-digit",minute:"2-digit"});
-  }catch(e){ return ""; }
-}
-
-function renderZapForm(){
-  const host = document.getElementById("zap-form-wrap");
-  const it = zapSelectedPos ? ITEMS_BY_POS[zapSelectedPos] : null;
-  const maxQty = it ? it.qty : 99;
-  if(zapQty > maxQty) zapQty = maxQty;
-  if(zapQty < 1) zapQty = 1;
-  host.innerHTML = `
-    <div class="zap-form">
-      <div class="field-lbl">${t("zap.form.posLabel")}</div>
-      <input type="text" id="zap-pos-input" placeholder="${t("zap.form.posPlaceholder")}" autocomplete="off" value="${it ? escapeHtml(it.pos + " — " + it.name) : ""}">
-      <div id="zap-pos-results"></div>
-      ${it ? `
-        <div class="zap-selected">
-          ${thumbHtml(it.pos)}
-          <div><b>${it.pos}</b><div class="sub" style="margin-top:2px;">${escapeHtml(it.name)}</div></div>
-          <button type="button" id="zap-clear-pos" title="${t("zap.form.clearTitle")}">✕</button>
-        </div>
-        <div class="field-lbl">${t("zap.form.qtyLabel")}</div>
-        <div class="zap-qty-row">
-          <div class="stepper">
-            <button type="button" id="zap-qty-minus" style="width:44px;height:44px;font-size:20px;">–</button>
-            <span class="count num" id="zap-qty-count" style="min-width:56px;">${zapQty}</span>
-            <button type="button" id="zap-qty-plus" style="width:44px;height:44px;font-size:20px;">+</button>
-          </div>
-          <span class="sub">${t("zap.form.ofOrdered", {maxQty})}</span>
-        </div>
-        <div class="field-lbl">${t("zap.form.noteLabel")}</div>
-        <textarea id="zap-note" placeholder="${t("zap.form.notePlaceholder")}"></textarea>
-        <button class="zap-submit" id="zap-submit">${t("zap.form.submit")}</button>
-      ` : ""}
-      <div class="sub" id="zap-status-line" style="margin-top:8px;"></div>
-    </div>
-  `;
-  const input = host.querySelector("#zap-pos-input");
-  const results = host.querySelector("#zap-pos-results");
-  function drawMatches(q){
-    const matches = findPosMatches(q);
-    results.innerHTML = "";
-    results.classList.toggle("show", matches.length > 0);
-    matches.forEach(x => {
-      const row = document.createElement("div");
-      row.className = "opt";
-      row.innerHTML = `<img src="${THUMBS[x.pos] || ""}" onerror="this.style.visibility='hidden'"><b>${x.pos}</b><span>${escapeHtml(x.name)}</span>`;
-      row.addEventListener("click", () => {
-        zapSelectedPos = x.pos;
-        zapQty = 1;
-        renderZapForm();
-      });
-      results.appendChild(row);
-    });
-  }
-  if(input){
-    input.addEventListener("input", e => drawMatches(e.target.value));
-    input.addEventListener("focus", () => { if(!it) drawMatches(input.value); });
-    if(!it){ /* czekamy na wpisanie */ }
-  }
-  const clearBtn = host.querySelector("#zap-clear-pos");
-  if(clearBtn) clearBtn.addEventListener("click", () => { zapSelectedPos = null; zapQty = 1; renderZapForm(); });
-  const qMinus = host.querySelector("#zap-qty-minus");
-  const qPlus = host.querySelector("#zap-qty-plus");
-  if(qMinus) qMinus.addEventListener("click", () => { if(zapQty > 1){ zapQty--; host.querySelector("#zap-qty-count").textContent = zapQty; } });
-  if(qPlus) qPlus.addEventListener("click", () => { if(zapQty < maxQty){ zapQty++; host.querySelector("#zap-qty-count").textContent = zapQty; } });
-  const submitBtn = host.querySelector("#zap-submit");
-  if(submitBtn) submitBtn.addEventListener("click", submitZapRequest);
-  if(!supa){
-    host.querySelector("#zap-status-line").textContent = t("zap.form.noConn");
-  }
-}
-
-async function submitZapRequest(){
-  if(!supa){ showToast(t("zap.toast.noConn")); return; }
-  if(!zapSelectedPos){ showToast(t("zap.toast.pickPos")); return; }
-  const btn = document.getElementById("zap-submit");
-  const statusLine = document.getElementById("zap-status-line");
-  if(btn) btn.disabled = true;
-  if(statusLine) statusLine.textContent = t("zap.sending");
-  ensureCrewName(async (name) => {
-    try{
-      const note = (document.getElementById("zap-note")?.value || "").trim() || null;
-      await withRetry(() => supa.from("demand_requests").insert({
-        store_id: STORE_ID, pos: zapSelectedPos, qty_needed: zapQty, requested_by: name, note, status: "open"
-      }));
-      showToast(t("zap.toast.sent", {pos: zapSelectedPos}));
-      zapSelectedPos = null; zapQty = 1;
-      renderZapForm();
-    }catch(e){
-      console.error("submitZapRequest", errMsg(e), e);
-      if(statusLine) statusLine.textContent = t("zap.error.send", {err: errMsg(e)});
-      if(btn) btn.disabled = false;
-    }
-  });
-}
-
-function zapRequestCard(r){
-  const it = ITEMS_BY_POS[r.pos];
-  const card = document.createElement("div");
-  card.className = "zap-card" + (r.status === "done" ? " zap-done" : "");
-  card.innerHTML = `
-    ${thumbHtml(r.pos)}
-    <div class="zap-card-main">
-      <div class="zap-card-top"><b>${r.pos}</b><span>${it ? escapeHtml(it.name) : ""}</span><span class="zap-when">${zapTimeLabel(r.created_at)}</span></div>
-      <div class="zap-card-meta">${t("zap.card.needed", {qty: r.qty_needed, name: escapeHtml(r.requested_by)})}${r.status === "done" ? t("zap.card.fulfilledBy", {name: escapeHtml(r.fulfilled_by || t("zap.card.fulfilledByFallback"))}) : ""}</div>
-      ${r.note ? `<div class="zap-card-note">${escapeHtml(r.note)}</div>` : ""}
-    </div>
-    <button class="zap-fulfill-btn" data-id="${r.id}">${r.status === "done" ? t("zap.card.fulfilledBtn") : t("zap.card.fulfillBtn")}</button>
-  `;
-  card.querySelector(".zap-fulfill-btn").addEventListener("click", async (e) => {
-    if(r.status === "done") return;
-    e.target.disabled = true;
-    ensureCrewName(async (name) => {
-      try{
-        await withRetry(() => supa.from("demand_requests").update({status:"done", fulfilled_by: name, fulfilled_at: new Date().toISOString()}).eq("id", r.id));
-      }catch(err){ console.error("zap-fulfill", errMsg(err), err); e.target.disabled = false; showToast(t("zap.error.save")); }
-    });
-  });
-  return card;
-}
-
-function renderZapList(){
-  const host = document.getElementById("zap-list");
-  host.innerHTML = "";
-  const open = zapRequests.filter(r => r.status !== "done").sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-  const done = zapRequests.filter(r => r.status === "done").sort((a,b) => new Date(b.fulfilled_at || b.created_at) - new Date(a.fulfilled_at || a.created_at)).slice(0, 20);
-  if(!open.length && !done.length){
-    host.innerHTML = `<div class="kom-empty" style="margin:0 16px;">${t("zap.empty")}</div>`;
-  } else {
-    if(open.length){
-      const lbl = document.createElement("div");
-      lbl.className = "zap-section-lbl";
-      lbl.textContent = t("zap.section.needNow", {n: open.length});
-      host.appendChild(lbl);
-      const wrap = document.createElement("div");
-      wrap.style.cssText = "display:flex;flex-direction:column;gap:10px;padding:0 16px;";
-      open.forEach(r => wrap.appendChild(zapRequestCard(r)));
-      host.appendChild(wrap);
-    }
-    if(done.length){
-      const lbl = document.createElement("div");
-      lbl.className = "zap-section-lbl";
-      lbl.textContent = t("zap.section.recentlyFulfilled");
-      host.appendChild(lbl);
-      const wrap = document.createElement("div");
-      wrap.style.cssText = "display:flex;flex-direction:column;gap:10px;padding:0 16px 20px;";
-      done.forEach(r => wrap.appendChild(zapRequestCard(r)));
-      host.appendChild(wrap);
-    }
-  }
-  document.getElementById("tab-cnt-zapotrzebowanie").textContent = String(open.length);
-}
-
-function upsertZapRequest(row){
-  const idx = zapRequests.findIndex(r => r.id === row.id);
-  if(idx >= 0) zapRequests[idx] = row; else zapRequests.unshift(row);
-  renderZapList();
-}
-
-// Otwarte Zgłoszenia (usterki montażowe) pokazane też tutaj, w Zapotrzebowaniu —
-// to wspólna tablica "co wymaga uwagi ekipy" (Roger: zgłoszenia powinny być
-// widoczne w zapotrzebowaniu), żeby nie trzeba było przełączać zakładek, by
-// zobaczyć, że coś czeka na działanie. Dane/subskrypcja są współdzielone z
-// Zgłoszeniami (ta sama tablica zgReports) — patrz initZgloszenia/upsertZgReport.
 function renderZapZgList(){
   const host = document.getElementById("zap-zg-list");
   if(!host) return;
   const open = zgReports.filter(r => r.status !== "done").sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
   host.innerHTML = "";
-  if(!open.length) return;
+  document.getElementById("tab-cnt-zapotrzebowanie").textContent = String(open.length);
+  if(!open.length){
+    host.innerHTML = `<div class="kom-empty" style="margin:0 16px;">${t("zap.empty")}</div>`;
+    return;
+  }
   const lbl = document.createElement("div");
   lbl.className = "zap-section-lbl";
   lbl.textContent = t("zap.openInZap.title", {n: open.length});
@@ -4049,7 +3758,7 @@ function renderZapZgList(){
     const url = zgPublicUrl(r.photo_path);
     card.innerHTML = `
       <div class="zg-card-top">
-        <b>${escapeHtml(r.pos_ref || t("zg.fallbackTitle"))}</b>
+        <b>${escapeHtml(zgPosLabel(r))}</b>
         <span class="zg-when">${zgTimeLabel(r.created_at)}</span>
       </div>
       <div class="zg-tag">${mountLabels()[r.mounting] || r.mounting}</div>
@@ -4072,421 +3781,11 @@ function renderZapZgList(){
 async function initZapotrzebowanie(){
   if(zapInited){ return; }
   zapInited = true;
-  renderZapForm();
-  // Zgłoszenia (usterki) są też pokazywane tutaj (patrz renderZapZgList) — upewnij się,
-  // że dane/subskrypcja Zgłoszeń są załadowane, nawet jeśli użytkownik nigdy nie
-  // otworzył zakładki Zgłoszenia osobno. initZgloszenia() jest idempotentne (zgInited).
+  // Cała zawartość tej zakładki to Zgłoszenia (patrz renderZapZgList powyżej)
+  // — upewnij się, że dane/subskrypcja Zgłoszeń są załadowane, nawet jeśli
+  // użytkownik nigdy nie otworzył zakładki Zgłoszenia osobno. initZgloszenia()
+  // jest idempotentne (zgInited) i samo wywołuje renderZapZgList() na końcu.
   initZgloszenia();
-  if(!supa){ renderZapList(); renderZapZgList(); return; }
-  try{
-    const { data, error } = await supa.from("demand_requests").select("*").eq("store_id", STORE_ID).order("created_at",{ascending:false}).limit(200);
-    if(error) throw error;
-    zapRequests = data || [];
-    renderZapList();
-  }catch(e){ console.error(e); renderZapList(); }
-  renderZapZgList();
-  subscribeTable("demand-live", "demand_requests", row => upsertZapRequest(row), "store_id=eq." + STORE_ID);
-}
-
-/* ============================================================
-   KRÓTKOFALÓWKA — czat tekstowy + PRAWDZIWA ROZMOWA NA ŻYWO
-   Osobne kanały: Wszyscy / Ekipa Baner / Ekipa Montaż-Wieszanie.
-   Głos = na żywo przez WebRTC (jak telefon), NIE nagrania do
-   odsłuchania później. Przytrzymujesz przycisk = mówisz na żywo
-   do wszystkich, którzy w tej chwili mają otwarty ten kanał.
-   Sygnalizacja WebRTC (oferta/odpowiedź/ICE) idzie przez kanał
-   "broadcast" Supabase Realtime — sam dźwięk leci już bezpośrednio
-   między urządzeniami (peer-to-peer), Supabase go nie widzi.
-   Brak własnego serwera TURN: na wspólnym wifi w sklepie połączenie
-   powinno wchodzić bez problemu; w bardzo restrykcyjnych sieciach
-   komórkowych część połączeń może się nie nawiązać — do ew. dodania
-   później, jeśli okaże się potrzebne.
-   ============================================================ */
-// Funkcja, nie stała tablica — jak getStatuses()/mountLabels(), żeby nazwy
-// kanałów odświeżały się przy zmianie języka (renderKomChannels wywoływane
-// z setLang()).
-function komChannels(){
-  return [
-    {id:"general", name:t("kom.channel.general")},
-    {id:"baner", name:t("kom.channel.baner")},
-    {id:"montaz", name:t("kom.channel.montaz")}
-  ];
-}
-const RTC_ICE_SERVERS = [{urls: ["stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"]}];
-const RTC_HELLO_INTERVAL_MS = 12000;
-const RTC_STALE_MS = 30000;
-
-let komInited = false;
-let komMessages = [];
-let komActiveChannel = "general";
-
-const KOM_PEER_ID_KEY = "obi_" + STORE_ID + "_peer_id_v1";
-function getPeerId(){
-  try{
-    let id = sessionStorage.getItem(KOM_PEER_ID_KEY);
-    if(!id){ id = "p" + Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem(KOM_PEER_ID_KEY, id); }
-    return id;
-  }catch(e){ return "p" + Math.random().toString(36).slice(2); }
-}
-const KOM_MY_PEER_ID = getPeerId();
-
-// Stan rozmowy na żywo dla aktualnie wybranego kanału.
-let rtcChannel = null;       // aktywny obiekt kanału Supabase Realtime (sygnalizacja)
-let rtcPeers = {};           // peerId -> {pc, audioEl, name, lastSeen, talking}
-let rtcLocalStream = null;   // strumień z mikrofonu (utrzymywany wyciszony, gdy nie mówimy)
-let rtcMicReady = false;
-let rtcTalking = false;
-let rtcHelloTimer = null;
-let rtcStaleTimer = null;
-
-function komTimeLabel(iso){
-  try{ return new Date(iso).toLocaleTimeString(t("common.locale"),{hour:"2-digit",minute:"2-digit"}); }catch(e){ return ""; }
-}
-
-function renderKomChannels(){
-  const host = document.getElementById("kom-channels");
-  host.innerHTML = "";
-  komChannels().forEach(c => {
-    const b = document.createElement("button");
-    b.className = "kom-chan-btn" + (c.id === komActiveChannel ? " active" : "");
-    b.textContent = c.name;
-    b.addEventListener("click", () => {
-      if(c.id === komActiveChannel) return;
-      komActiveChannel = c.id;
-      renderKomChannels();
-      renderKomMessages();
-      joinRtcChannel(komActiveChannel);
-    });
-    host.appendChild(b);
-  });
-}
-
-function renderKomMessages(){
-  const host = document.getElementById("kom-messages");
-  const mine = getCrewName();
-  const list = komMessages.filter(m => m.channel_id === komActiveChannel).sort((a,b) => new Date(a.created_at)-new Date(b.created_at));
-  if(!list.length){
-    host.innerHTML = `<div class="kom-empty">${t("kom.empty")}</div>`;
-  } else {
-    host.innerHTML = "";
-    list.forEach(m => {
-      const el = document.createElement("div");
-      el.className = "kom-msg" + (m.sender_name === mine ? " kom-mine" : "");
-      el.innerHTML = `
-        <div class="kom-msg-meta"><b>${escapeHtml(m.sender_name)}</b><span>${komTimeLabel(m.created_at)}</span></div>
-        <div class="kom-msg-body">${escapeHtml(m.body || "")}</div>
-      `;
-      host.appendChild(el);
-    });
-  }
-  host.scrollTop = host.scrollHeight;
-  document.getElementById("tab-cnt-komunikator").textContent = String(komMessages.length);
-}
-
-function upsertKomMessage(row){
-  if(komMessages.some(m => m.id === row.id)) return;
-  komMessages.push(row);
-  renderKomMessages();
-}
-
-function renderKomPresence(){
-  const host = document.getElementById("kom-presence");
-  if(!host) return;
-  const names = Object.values(rtcPeers).filter(p => p.connected).map(p => p.name || "?");
-  const speaking = Object.values(rtcPeers).find(p => p.talking);
-  if(speaking){
-    host.innerHTML = `<span class="kom-live-dot"></span> ${t("kom.presence.speaking", {name: escapeHtml(speaking.name || "?")})}`;
-  } else if(names.length){
-    host.innerHTML = `<span class="kom-live-dot kom-live-idle"></span> ${t("kom.presence.online", {names: names.map(escapeHtml).join(", ")})}`;
-  } else {
-    host.innerHTML = `<span class="kom-live-dot kom-live-off"></span> ${t("kom.presence.empty")}`;
-  }
-}
-
-function renderKomComposer(){
-  const host = document.getElementById("kom-composer");
-  host.innerHTML = `
-    <span id="kom-name-badge">${t("kom.you", {name: "<b id=\"kom-name-val\">" + escapeHtml(getCrewName() || t("kom.you.fallback")) + "</b>"})}</span>
-    <input type="text" id="kom-text" placeholder="${t("kom.text.placeholder")}">
-    <button id="kom-send" title="${t("kom.send.title")}">➤</button>
-    <button id="kom-ptt" title="${t("kom.ptt.title")}">🎙️</button>
-  `;
-  host.querySelector("#kom-name-badge").addEventListener("click", () => {
-    const n = (prompt(t("kom.namePrompt"), getCrewName()) || "").trim();
-    if(n){ setCrewName(n); host.querySelector("#kom-name-val").textContent = n; renderKomMessages(); broadcastHello(); }
-  });
-  const textInput = host.querySelector("#kom-text");
-  const send = () => {
-    const v = textInput.value.trim();
-    if(!v) return;
-    if(!supa){ showToast(t("kom.toast.noConn")); return; }
-    ensureCrewName(async (name) => {
-      textInput.value = "";
-      try{
-        await withRetry(() => supa.from("messages").insert({
-          store_id: STORE_ID, channel_id: komActiveChannel, sender_name: name, kind: "text", body: v
-        }));
-      }catch(e){ console.error("kom-send", errMsg(e), e); showToast(t("kom.toast.sendFail", {err: errMsg(e)})); textInput.value = v; }
-    });
-  };
-  host.querySelector("#kom-send").addEventListener("click", send);
-  textInput.addEventListener("keydown", e => { if(e.key === "Enter") send(); });
-
-  const pttBtn = host.querySelector("#kom-ptt");
-  const startTalk = (e) => {
-    e.preventDefault();
-    if(!supa){ showToast(t("kom.toast.noConn")); return; }
-    if(rtcTalking) return;
-    ensureCrewName(async () => {
-      const ok = await ensureLocalMic();
-      if(!ok){ return; }
-      rtcTalking = true;
-      setLocalMicEnabled(true);
-      pttBtn.classList.add("recording");
-      broadcastPtt(true);
-    });
-  };
-  const stopTalk = (e) => {
-    e.preventDefault();
-    if(!rtcTalking) return;
-    rtcTalking = false;
-    setLocalMicEnabled(false);
-    pttBtn.classList.remove("recording");
-    broadcastPtt(false);
-  };
-  pttBtn.addEventListener("pointerdown", startTalk);
-  pttBtn.addEventListener("pointerup", stopTalk);
-  pttBtn.addEventListener("pointerleave", stopTalk);
-  pttBtn.addEventListener("pointercancel", stopTalk);
-}
-
-/* ---- WebRTC: mikrofon lokalny ---- */
-async function ensureLocalMic(){
-  if(rtcMicReady) return true;
-  try{
-    rtcLocalStream = await navigator.mediaDevices.getUserMedia({audio:true});
-    rtcLocalStream.getAudioTracks().forEach(t => t.enabled = false);
-    rtcMicReady = true;
-    // dołóż ścieżkę do połączeń już nawiązanych, zanim mieliśmy mikrofon
-    Object.values(rtcPeers).forEach(p => {
-      try{
-        const sender = p.pc.getSenders().find(s => s.track === null && s.transport !== undefined) || p.pc.getSenders().find(s => !s.track);
-        const track = rtcLocalStream.getAudioTracks()[0];
-        if(sender){ sender.replaceTrack(track); }
-        else { p.pc.addTrack(track, rtcLocalStream); }
-      }catch(err){ console.error(err); }
-    });
-    return true;
-  }catch(err){
-    console.error(err);
-    showToast(t("kom.toast.noMic"));
-    return false;
-  }
-}
-function setLocalMicEnabled(on){
-  if(!rtcLocalStream) return;
-  rtcLocalStream.getAudioTracks().forEach(t => t.enabled = on);
-}
-
-/* ---- WebRTC: sygnalizacja przez Supabase Realtime broadcast ---- */
-function rtcSend(type, payload){
-  if(!rtcChannel) return;
-  try{
-    // imię dokładamy do KAŻDEJ wiadomości (nie tylko "hello") — inaczej peer,
-    // który dowie się o nas najpierw przez "offer"/"ice", pokazuje "?" aż do
-    // najbliższego cyklicznego hello (do 12s później).
-    rtcChannel.send({type:"broadcast", event:"signal", payload: Object.assign({type, from: KOM_MY_PEER_ID, name: getCrewName() || t("crew.fallback")}, payload)});
-  }catch(e){ console.error(e); }
-}
-function broadcastHello(){
-  rtcSend("hello", {});
-}
-function broadcastBye(){
-  rtcSend("bye", {});
-}
-function broadcastPtt(active){
-  rtcSend("ptt", {active});
-}
-
-function getOrCreatePeer(peerId, name){
-  let p = rtcPeers[peerId];
-  if(p){ if(name) p.name = name; p.lastSeen = Date.now(); return p; }
-  const pc = new RTCPeerConnection({iceServers: RTC_ICE_SERVERS});
-  // "polite/impolite" peer roles dla obsługi jednoczesnych ofert (glare) —
-  // obie strony liczą to samo porównanie ID w odwrotnej kolejności, więc
-  // zawsze wychodzi im komplementarnie (jedna polite, druga nie).
-  const polite = KOM_MY_PEER_ID < peerId;
-  p = rtcPeers[peerId] = {pc, audioEl:null, name: name || "?", connected:false, talking:false, lastSeen: Date.now(), polite, offered:false, makingOffer:false, ignoreOffer:false};
-  if(rtcLocalStream){
-    rtcLocalStream.getAudioTracks().forEach(t => pc.addTrack(t, rtcLocalStream));
-  } else {
-    pc.addTransceiver("audio", {direction:"sendrecv"});
-  }
-  pc.onicecandidate = (ev) => {
-    if(ev.candidate) rtcSend("ice", {to: peerId, candidate: ev.candidate.toJSON ? ev.candidate.toJSON() : ev.candidate});
-  };
-  pc.ontrack = (ev) => {
-    let audioEl = document.getElementById("kom-audio-" + peerId);
-    if(!audioEl){
-      audioEl = document.createElement("audio");
-      audioEl.id = "kom-audio-" + peerId;
-      audioEl.autoplay = true;
-      audioEl.style.display = "none";
-      document.body.appendChild(audioEl);
-    }
-    audioEl.srcObject = ev.streams[0];
-    p.audioEl = audioEl;
-    const playPromise = audioEl.play();
-    if(playPromise && playPromise.catch){
-      playPromise.catch(() => showKomAudioUnlock());
-    }
-  };
-  pc.onconnectionstatechange = () => {
-    p.connected = pc.connectionState === "connected";
-    renderKomPresence();
-    if(pc.connectionState === "failed" || pc.connectionState === "closed"){
-      removePeer(peerId);
-    }
-  };
-  return p;
-}
-
-function removePeer(peerId){
-  const p = rtcPeers[peerId];
-  if(!p) return;
-  try{ p.pc.close(); }catch(e){}
-  if(p.audioEl){ p.audioEl.srcObject = null; p.audioEl.remove(); }
-  delete rtcPeers[peerId];
-  renderKomPresence();
-}
-
-function showKomAudioUnlock(){
-  if(document.getElementById("kom-audio-unlock")) return;
-  const btn = document.createElement("button");
-  btn.id = "kom-audio-unlock";
-  btn.textContent = t("kom.audioUnlock");
-  btn.style.cssText = "position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:300;padding:10px 18px;border-radius:99px;background:var(--accent);color:#fff;border:none;font-weight:700;cursor:pointer;box-shadow:var(--shadow);";
-  btn.addEventListener("click", () => {
-    Object.values(rtcPeers).forEach(p => { if(p.audioEl) p.audioEl.play().catch(()=>{}); });
-    btn.remove();
-  });
-  document.body.appendChild(btn);
-}
-
-async function ensureOffer(p, peerId){
-  // Wywoływane na "hello" — inicjuje połączenie tylko raz na parę urządzeń.
-  if(p.offered) return;
-  p.offered = true;
-  try{
-    p.makingOffer = true;
-    const offer = await p.pc.createOffer();
-    await p.pc.setLocalDescription(offer);
-    rtcSend("offer", {to: peerId, sdp: {type: offer.type, sdp: offer.sdp}});
-  }catch(e){ console.error("offer", errMsg(e), e); }
-  finally{ p.makingOffer = false; }
-}
-
-async function handleRtcSignal(msg){
-  if(!msg || msg.from === KOM_MY_PEER_ID) return;
-  const from = msg.from;
-  if(msg.type === "hello"){
-    const p = getOrCreatePeer(from, msg.name);
-    ensureOffer(p, from);
-  } else if(msg.type === "offer" && msg.to === KOM_MY_PEER_ID){
-    // "Perfect negotiation": oba urządzenia mogą wysłać ofertę w tym samym
-    // momencie (glare) — bez tego dwie jednoczesne oferty wywalały
-    // setRemoteDescription błędem na obu końcach za każdym razem, gdy dwa
-    // urządzenia odkrywały się nawzajem. Strona "polite" wycofuje własną
-    // ofertę i przyjmuje cudzą; "impolite" ignoruje cudzą i broni swojej.
-    const p = getOrCreatePeer(from, msg.name);
-    const offerCollision = p.makingOffer || p.pc.signalingState !== "stable";
-    p.ignoreOffer = !p.polite && offerCollision;
-    if(p.ignoreOffer) return;
-    try{
-      if(offerCollision){
-        await Promise.all([
-          p.pc.setLocalDescription({type: "rollback"}),
-          p.pc.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-        ]);
-      } else {
-        await p.pc.setRemoteDescription(new RTCSessionDescription(msg.sdp));
-      }
-      const answer = await p.pc.createAnswer();
-      await p.pc.setLocalDescription(answer);
-      p.offered = true;
-      rtcSend("answer", {to: from, sdp: {type: answer.type, sdp: answer.sdp}});
-    }catch(e){ console.error("answer", errMsg(e), e); }
-  } else if(msg.type === "answer" && msg.to === KOM_MY_PEER_ID){
-    const p = rtcPeers[from];
-    if(p){ if(msg.name) p.name = msg.name; try{ await p.pc.setRemoteDescription(new RTCSessionDescription(msg.sdp)); }catch(e){ console.error("answer-remote", errMsg(e), e); } }
-  } else if(msg.type === "ice" && msg.to === KOM_MY_PEER_ID){
-    const p = rtcPeers[from];
-    if(p){
-      if(msg.name) p.name = msg.name;
-      if(msg.candidate){
-        try{ await p.pc.addIceCandidate(new RTCIceCandidate(msg.candidate)); }
-        catch(e){ if(!p.ignoreOffer) console.error("ice", errMsg(e), e); }
-      }
-    }
-  } else if(msg.type === "ptt"){
-    const p = rtcPeers[from];
-    if(p){ if(msg.name) p.name = msg.name; p.talking = !!msg.active; p.lastSeen = Date.now(); renderKomPresence(); }
-  } else if(msg.type === "bye"){
-    removePeer(from);
-  }
-}
-
-function leaveRtcChannel(){
-  clearInterval(rtcHelloTimer); rtcHelloTimer = null;
-  clearInterval(rtcStaleTimer); rtcStaleTimer = null;
-  if(rtcTalking){ rtcTalking = false; setLocalMicEnabled(false); }
-  const pttBtn = document.getElementById("kom-ptt");
-  if(pttBtn) pttBtn.classList.remove("recording");
-  broadcastBye();
-  Object.keys(rtcPeers).forEach(removePeer);
-  if(rtcChannel && supa){ try{ supa.removeChannel(rtcChannel); }catch(e){} }
-  rtcChannel = null;
-}
-
-function joinRtcChannel(channelId){
-  if(!supa) return;
-  leaveRtcChannel();
-  rtcChannel = supa.channel("rtc-" + STORE_ID + "-" + channelId);
-  rtcChannel
-    .on("broadcast", {event:"signal"}, ({payload}) => handleRtcSignal(payload))
-    .subscribe((status) => {
-      if(status === "SUBSCRIBED"){ broadcastHello(); }
-    });
-  rtcHelloTimer = setInterval(broadcastHello, RTC_HELLO_INTERVAL_MS);
-  rtcStaleTimer = setInterval(() => {
-    const now = Date.now();
-    Object.keys(rtcPeers).forEach(id => {
-      if(now - rtcPeers[id].lastSeen > RTC_STALE_MS) removePeer(id);
-    });
-  }, RTC_STALE_MS);
-  renderKomPresence();
-}
-
-window.addEventListener("beforeunload", () => { if(rtcChannel) leaveRtcChannel(); });
-window.addEventListener("pagehide", () => { if(rtcChannel) leaveRtcChannel(); });
-
-async function initKomunikator(){
-  if(komInited){ renderKomMessages(); return; }
-  komInited = true;
-  renderKomChannels();
-  renderKomComposer();
-  if(!supa){
-    document.getElementById("kom-messages").innerHTML = `<div class="kom-empty">${t("kom.offline")}</div>`;
-    return;
-  }
-  try{
-    const { data, error } = await supa.from("messages").select("*").eq("store_id", STORE_ID).order("created_at",{ascending:false}).limit(300);
-    if(error) throw error;
-    komMessages = (data || []).reverse();
-    renderKomMessages();
-  }catch(e){ console.error(e); renderKomMessages(); }
-  subscribeTable("messages-live", "messages", row => upsertKomMessage(row), "store_id=eq." + STORE_ID);
-  joinRtcChannel(komActiveChannel);
 }
 
 /* ============================================================
