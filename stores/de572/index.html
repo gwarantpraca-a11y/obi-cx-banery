@@ -1670,6 +1670,30 @@ let artifactCap = null;
 let saving = false;
 let saveQueued = false;
 
+/* ID pinezek na planie — MUSI być stabilne w treści (pos+plan), a NIE
+   zależne od pozycji w tablicy (indeksu). Wcześniejsza wersja używała
+   "hs"+indeks — przy każdym przebudowaniu hotspots.json (nowe pozycje,
+   inna kolejność, inny filtr) indeksy się przesuwały, więc to samo id
+   zaczynało oznaczać zupełnie inny punkt na planie. W Supabase (tabela
+   plan_pins) stare wiersze z tym id NIE są nadpisywane (żeby nie
+   skasować cudzego zapisanego postępu) — więc po każdej korekcie planu
+   duża część pinezek "utykała" na starych, nieaktualnych współrzędnych,
+   a nowe pozycje w ogóle się nie pojawiały (2026-09-20, zgłoszenie
+   Rogera "hala główna znowu lipa" mimo poprawnych danych w RAW_DATA —
+   przyczyna była w Supabase, nie w danych ani w cache przeglądarki).
+   Nowy schemat: id = "p"+plan+"_"+pos+"_"+n, gdzie n to kolejny numer
+   wystąpienia tej samej pozycji na tym samym planie (dla duplikatów) —
+   zależne WYŁĄCZNIE od treści (pos/plan), nie od kolejności w tablicy. */
+function stableHotspotIds(list){
+  const seen = {};
+  return list.map(h => {
+    const plan = h.plan || 1;
+    const key = plan + "_" + h.pos;
+    const n = (seen[key] = (seen[key] || 0) + 1) - 1;
+    return "p" + plan + "_" + h.pos + "_" + n;
+  });
+}
+
 function defaultState(){
   const checklist = {};
   RAW_DATA.items.forEach(it => { checklist[it.pos] = {done:0, note:"", issue:null}; });
@@ -1692,8 +1716,10 @@ function defaultState(){
   // właściwej pozycji z listy, gotowa do stuknięcia bez żadnego wpisywania.
   // Naklejki (Wejście/Windfang) NIE wchodzą tu — mają własny tor (STATE.stickers)
   // i własne znaczniki na planie (STICKER_SPOTS), żeby nie mieszać się z banerami.
-  const pins = (RAW_DATA.hotspots || []).filter(h => !isStickerPos(h.pos)).map((h, i) => ({
-    id: "hs" + i, pos: h.pos, label: null, x: h.x, y: h.y, status: "todo", note: "", tag: true, plan: h.plan || 1
+  const tagHotspots = (RAW_DATA.hotspots || []).filter(h => !isStickerPos(h.pos));
+  const tagHotspotIds = stableHotspotIds(tagHotspots);
+  const pins = tagHotspots.map((h, i) => ({
+    id: tagHotspotIds[i], pos: h.pos, label: null, x: h.x, y: h.y, status: "todo", note: "", tag: true, plan: h.plan || 1
   }));
   // Ręcznie dostawiane znaczniki naklejek (np. logo OBI na wielu identycznych
   // drzwiach przesuwnych — nie mają jednego wydrukowanego numerka na planie,
@@ -1721,8 +1747,10 @@ function defaultState(){
 let pinsSubscribed = false;
 
 function defaultTagPinsList(){
-  return (RAW_DATA.hotspots || []).filter(h => !isStickerPos(h.pos)).map((h, i) => ({
-    id: "hs" + i, pos: h.pos, x: h.x, y: h.y, plan: h.plan || 1
+  const tagHotspots = (RAW_DATA.hotspots || []).filter(h => !isStickerPos(h.pos));
+  const tagHotspotIds = stableHotspotIds(tagHotspots);
+  return tagHotspots.map((h, i) => ({
+    id: tagHotspotIds[i], pos: h.pos, x: h.x, y: h.y, plan: h.plan || 1
   }));
 }
 function pinRowToLocal(row){
@@ -1753,6 +1781,8 @@ async function loadPinsFromCloud(){
     const byId = {};
     (data || []).forEach(row => { byId[row.id] = row; });
     const defaults = defaultTagPinsList();
+    const defaultsById = {};
+    defaults.forEach(dp => { defaultsById[dp.id] = dp; });
     const missing = defaults.filter(dp => !byId[dp.id]);
     if(missing.length){
       const rows = missing.map(dp => pinToRow(Object.assign({status:"todo", note:"", label:null, tag:true}, dp), "banner"));
@@ -1764,7 +1794,24 @@ async function loadPinsFromCloud(){
       }catch(e){ console.error("seed plan_pins", errMsg(e), e); }
       rows.forEach(r => { byId[r.id] = r; });
     }
-    const rows = Object.values(byId);
+    // Drobne poprawki współrzędnych/pozycji dla ID, które JUŻ istnieją w
+    // chmurze (np. korekta o 1-2px po ponownym odczycie z PDF) — status i
+    // notatka NIE są ruszane, tylko geometria/etykieta pozycji.
+    const drifted = Object.values(byId).filter(row => row.kind === "banner" && defaultsById[row.id] &&
+      (row.x !== defaultsById[row.id].x || row.y !== defaultsById[row.id].y || row.pos !== defaultsById[row.id].pos || row.plan !== defaultsById[row.id].plan));
+    if(drifted.length){
+      const rows = drifted.map(row => pinToRow(Object.assign({}, pinRowToLocal(row), defaultsById[row.id]), "banner"));
+      try{
+        await withRetry(() => supa.from("plan_pins").upsert(rows, {onConflict: "store_id,id"}));
+      }catch(e){ console.error("refresh drifted plan_pins", errMsg(e), e); }
+      rows.forEach(r => { byId[r.id] = r; });
+    }
+    // Pinezki-"banery" (kind="banner"), których id nie odpowiada już ŻADNEJ
+    // aktualnej pozycji z RAW_DATA.hotspots (np. sprzed poprzedniej korekty
+    // planu, z innym schematem numeracji) — NIE są kasowane z bazy (na
+    // wszelki wypadek, gdyby ktoś zapisał tam realny postęp), ale też nie są
+    // pokazywane na planie, żeby nie zawyżały/zniekształcały liczby banerów.
+    const rows = Object.values(byId).filter(row => row.kind !== "banner" || defaultsById[row.id]);
     const pins = rows.filter(r => r.kind !== "sticker").map(pinRowToLocal);
     const stickerPins = rows.filter(r => r.kind === "sticker").map(stickerRowToLocal);
     return { pins, stickerPins };
