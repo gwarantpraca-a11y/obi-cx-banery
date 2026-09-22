@@ -490,6 +490,27 @@
   .hotspot[data-st="done"] .hotspot-box{border-color:var(--good);background:color-mix(in srgb, var(--good) 20%, transparent);}
   .hotspot[data-st="problem"] .hotspot-box{border-color:var(--warn);background:color-mix(in srgb, var(--warn) 20%, transparent);}
   .hotspot[data-st="missing"] .hotspot-box{border-color:var(--bad);background:color-mix(in srgb, var(--bad) 20%, transparent);}
+  /* Biały numer pozycji NAD ramką (Roger, 2026-09-22: samo przycięcie
+     przezroczystości nie wystarczyło — nadal nie widać numerka pod spodem
+     na niektórych planach). Zamiast polegać na tym, że wydrukowany numer
+     "prześwituje" przez tło, wypisujemy go wprost, białą czcionką z
+     ciemnym obrysem (text-shadow), więc jest czytelny niezależnie od tego,
+     co jest narysowane pod spodem. Rozmiar czcionki skalowany razem z
+     ramką (patrz sizeHotspotEl() — ustawia --hn-fs), więc rośnie/maleje
+     razem z zoomem planu tak samo jak reszta hotspotu.
+     pointer-events:none — napis nie ma przechwytywać kliknięć, ma je
+     przepuszczać do .hotspot (ten sam efekt kliknięcia niezależnie czy
+     trafi się w ramkę czy w numer). */
+  .hotspot-num{
+    position:absolute; inset:10%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:"Barlow Condensed"; font-weight:800;
+    font-size:var(--hn-fs, 11px); line-height:1;
+    text-shadow:0 1px 2px rgba(0,0,0,.9), 0 0 4px rgba(0,0,0,.7), 0 0 1px rgba(0,0,0,.9);
+    white-space:nowrap; overflow:hidden; letter-spacing:-.02em;
+    pointer-events:none;
+  }
+  .hotspot.sticker-spot .hotspot-num{display:none;} /* naklejki: bez numeru, jak dotychczas */
   .hotspot.sticker-spot .hotspot-box{border-color:#a537c9;background:color-mix(in srgb, #a537c9 10%, transparent);}
   .hotspot.sticker-spot[data-st="done"] .hotspot-box{border-color:var(--good);background:color-mix(in srgb, var(--good) 20%, transparent);}
   .hotspot.sticker-spot[data-st="problem"] .hotspot-box{border-color:var(--warn);background:color-mix(in srgb, var(--warn) 20%, transparent);}
@@ -2818,6 +2839,9 @@ function sizeHotspotEl(el, imgW, imgH){
   el.style.height = h + "px";
   el.style.marginLeft = (-w / 2) + "px";
   el.style.marginTop = (-h / 2) + "px";
+  // Czcionka numeru (.hotspot-num) skalowana razem z ramką, żeby przy
+  // zoomie planu rosła/malała tak samo jak reszta hotspotu (patrz CSS).
+  el.style.setProperty("--hn-fs", Math.max(8, Math.round(h * 0.6)) + "px");
 }
 
 // Funkcja, nie stała tablica — etykiety mają być aktualne w chwili
@@ -3035,7 +3059,7 @@ function renderPins(){
       el.style.left = (p.x * pz.imgW) + "px";
       el.style.top = (p.y * pz.imgH) + "px";
       sizeHotspotEl(el, pz.imgW, pz.imgH);
-      el.innerHTML = `<div class="hotspot-box"></div>${p.seal ? '<div class="seal-badge">👑</div>' : ""}`;
+      el.innerHTML = `<div class="hotspot-box"></div><span class="hotspot-num">${escapeHtml(p.pos || p.label || "")}</span>${p.seal ? '<div class="seal-badge">👑</div>' : ""}`;
     } else {
       el.className = "pin";
       el.dataset.st = p.status;
